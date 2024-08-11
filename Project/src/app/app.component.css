@@ -1,0 +1,7 @@
+h1{
+    font-family: sans-serif;
+    color: darkblue;
+}
+nav .active{
+    font-weight: bold;
+}

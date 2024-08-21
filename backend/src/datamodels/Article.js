@@ -1,26 +1,29 @@
+const { DataTypes } = require("sequelize");
+
 module.exports = (sequelize, Sequelize) => {
-    const Article = sequelize.define('article', {
+    const Article = sequelize.define('Article', {
         title: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             allowNull: false
         },
         subtitle: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             allowNull: false
         },
         body: {
-            type: Sequelize.TEXT,
+            type: DataTypes.TEXT,
             allowNull: false
         },
-        creationDate: {
-            type: Sequelize.DATE,
-            allowNull: false
+        createdAt: {
+            type: DataTypes.DATE,
+            allowNull: true
         },
-        lastModified: {
-            type: Sequelize.STRING
+        updatedAt: {
+            type: DataTypes.DATE,
+            allowNull: true
         },
         tags: {
-            type: Sequelize.ARRAY(Sequelize.STRING)
+            type: DataTypes.ARRAY(DataTypes.STRING)
         }
     });
     return Article;

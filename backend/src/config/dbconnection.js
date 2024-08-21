@@ -6,20 +6,20 @@ const sequelize = new Sequelize('pressportal', 'postgres', 'Simone.2001', {
     port: '5432'
 });
 
-const database = {};
-database.Sequelize = Sequelize;
-database.sequelize = sequelize;
+const User = require('../datamodels/User')(sequelize);
+const Article = require('../datamodels/Article')(sequelize);
 
-database.articles = require('../datamodels/Article')(sequelize, Sequelize);
-database.users = require('../datamodels/User')(sequelize, Sequelize);
-
-database.users.hasMany(database.articles, { as: 'articles' });
-database.articles.belongsTo(database.users, {
-    foreignKey: 'userId',
-    as: 'author'
+User.hasMany(Article, {
+    as: 'articles',
+    foreignKey: 'userId'
 });
 
-module.exports = database;
+Article.belongsTo(User, {
+    as: 'user',
+    foreignKey: 'userId'
+});
+
+module.exports = { sequelize, User, Article};
 
 
 

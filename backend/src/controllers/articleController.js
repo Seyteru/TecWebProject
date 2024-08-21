@@ -30,4 +30,27 @@ articleController.get('/', async(req, res) => {
     }
 });
 
+articleController.get('/byUserId/:id', async(req, res) => {
+    try {
+        const userId = req.params.id;
+        const articles = await articleCrud.getLatestAuthorArticles(userId);
+        res.status(200).json(articles);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+articleController.get('/:id', async(req, res) => {
+    try {
+        const article = await articleCrud.getArticleById(req.params.id);
+        if(article){
+            res.status(200).json(article);
+        } else{
+            res.status(404).json({ error: 'Article Not Found!' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 module.exports = articleController;

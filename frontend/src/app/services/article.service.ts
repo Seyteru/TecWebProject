@@ -9,7 +9,7 @@ import { AuthenticationService } from './authentication.service';
 })
 export class ArticleService {
 
-  private url = 'http://localhost:5432/articles';
+  private url = 'http://localhost:3000/api/articles';
   private authService = inject(AuthenticationService)
   constructor(private http: HttpClient){}
 

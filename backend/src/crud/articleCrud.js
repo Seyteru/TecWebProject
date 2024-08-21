@@ -8,7 +8,7 @@ const createArticle = async(articleParams) => {
 const getLatestArticlesWithLimit = async() => {
     return await Article.findAll({
         limit: 10,
-        order: [['creationDate', 'DESC']]
+        order: [['createdAt', 'DESC']]
     });
 };
 
@@ -26,7 +26,7 @@ const getLatestAuthorArticles = async(userId) => {
             userId: userId
         },
         limit: 10,
-        order: [['creationDate', 'DESC']]
+        order: [['createdAt', 'DESC']]
     });
 };
 

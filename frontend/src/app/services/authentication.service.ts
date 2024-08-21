@@ -7,7 +7,7 @@ import { catchError, map, Observable, of } from 'rxjs';
 })
 export class AuthenticationService {
 
-  private url = 'http://localhost:5432/auth';
+  private url = 'http://localhost:3000/auth';
 
   private http = inject(HttpClient)
   tokenKey: string = '';

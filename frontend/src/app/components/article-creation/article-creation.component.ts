@@ -44,7 +44,7 @@ export class ArticleCreationComponent {
   onSubmit(){
     this.articleService.createArticle(this.newArticle).subscribe(
       (res) => {
-        console.log('User created', res);
+        console.log('Article Created!', res);
       },
       (error) => {
         console.error(error);

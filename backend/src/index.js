@@ -1,27 +1,29 @@
-const express = require("express");
-const sequelize = require("./config/dbconnection");
-const User = require("./datamodels/User");
-const Article = require("./datamodels/Article");
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+
 const app = express();
-const PORT = "5432";
+ 
+corsOptions = {
+    origin: 'http://localhost:4200'
+};
 
-app.use(express.json());
+app.use(cors(corsOptions));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-sequelize.authenticate()
-    .then(() => console.log("Connection Successful"))
-    .catch(err => console.log("Connection Failure", err));
-
-sequelize.sync({ force: true })
-    .then(() => console.log("Models Sync Successful"))
-    .catch(err => console.log("Models Sync Failure", err));
-
-app.get("/", (req, res) => {
-    res.send("Welcome to PRESSPORTAL");
+const database = require('./config/dbconnection');
+database.sequelize.sync().then(() => {
+    console.log('Database Sync Success!');
 });
 
+require('./routes/articleRoute')(app);
+
+app.get('/', (req, res) => {
+    res.json({ message: 'WELCOME TO PRESSPORTAL' })
+});
+
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server on http://localhost:${PORT}`);
+    console.log(`Server on PORT: ${PORT}`);
 });
-
-Article.belongsTo(User);
-User.hasMany(Article);

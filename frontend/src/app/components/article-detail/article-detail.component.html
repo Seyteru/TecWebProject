@@ -1,1 +1,19 @@
-<p>article-detail works!</p>
+<div class="articlesDetailContainer">
+    <h1>{{ article?.getTitle() }}</h1>
+    <h2>{{ article?.getSubtitle }}</h2>
+    <!--Wrote by author(get the author of the article)-->
+    @if(article?.getLastModified){
+        <p>
+            Last Modified: {{ article?.getLastModified}}
+        </p>
+    }
+    <div class="articleBody" [innerHTML]="article?.getBody"></div>
+    <div class="tag">
+        <h3>Tags: </h3>
+        @for (tg of article?.getTag(); track tg) {
+            <span>
+                <a [routerLink]="['/tag', tg]">{{ tg }}</a>
+            </span>
+        }
+    </div>
+</div>

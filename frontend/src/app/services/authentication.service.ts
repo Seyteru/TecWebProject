@@ -1,48 +1,52 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  private restUrl = "http://localhost:5432/auth";
-  currentUser: Observable<any> | undefined;
-  currentUserSub: BehaviorSubject<any> | undefined;
+  private url = 'http://localhost:5432/auth';
 
-  constructor(private http: HttpClient) {
-    this.currentUserSub = new BehaviorSubject<any>(JSON.parse(localStorage.getItem("currentUser") || "{}"));
-     this.currentUser = this.currentUserSub.asObservable();
-  }
+  private http = inject(HttpClient)
+  tokenKey: string = '';
 
-  login(username: string, password: string): Observable<any>{
-    return this.http.post<any>(`${this.restUrl}/login`, {username, password})
-      .pipe(map(user => {
-        if(user && user.token){
-          localStorage.setItem("currentUser", JSON.stringify(user));
-          this.currentUserSub?.next(user);
+  login(username: string | null | undefined, password: string | null | undefined): Observable<boolean>{
+    const restUrl = `${this.url}/login`;
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const body = { username, password };
+
+    return this.http.post<{ token: string }>(restUrl, body, { headers }).pipe(
+      map( res => {
+        if (res && res.token) {
+          localStorage.setItem(this.tokenKey, res.token);
+          return true;
+        } else{
+          return false;
         }
-        return user;
-      }));
+      }),
+      catchError(this.handleError<boolean>('login', false))
+    );
   }
   
   logout(){
-    localStorage.removeItem("currentUser");
-    this.currentUserSub?.next(null);
+    localStorage.removeItem(this.tokenKey);
   }
 
-  isUserAuth() : boolean {
-    return !this.getCurrentUser() && !this.getCurrentUser();
+  isLoggedIn(): boolean{
+    return !!localStorage.getItem(this.tokenKey);
   }
 
-  getToken(): string{
-    const currentUser = this.getCurrentUser()
-    return currentUser ? currentUser.token : null;
+  getToken(): string | null{
+    return localStorage.getItem(this.tokenKey);
   }
 
-  getCurrentUser(): any{
-    return this.currentUserSub?.value;
+  private handleError<T>(operation = 'operation', result: T){
+    return(error: any): Observable<T> => {
+      console.error(`${operation} failure: ${error.message}`);
+      return of(result as T);
+    };
   }
   
 }

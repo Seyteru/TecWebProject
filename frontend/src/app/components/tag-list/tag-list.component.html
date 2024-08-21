@@ -1,1 +1,29 @@
-<p>tag-list works!</p>
+<div class="tagListContainer">
+    <h1>Latest Articles with {{ tag }} Tag</h1>
+    @if(articles.length > 0){
+        <ul class="articlesList">
+            @for (article of articles; track article) {
+                <li>
+                    <h3>
+                        <a [routerLink]="['/article', article.getArticleId()]">{{ article.getTitle() }}</a>
+                    </h3>
+                    <!--Author and creationDate-->
+                    @if(article.getLastModified()){
+                        <p>
+                            Last Modified: {{ article.getLastModified() }}
+                        </p>
+                    }
+                    <div class="tag">
+                        @for (tg of article?.getTag(); track tg) {
+                            <span>
+                                <a [routerLink]="['/tag', tg]">{{ tg }}</a>
+                            </span>
+                        }
+                    </div>
+                </li>
+            }
+        </ul>
+    } @else {
+        <p>No Articles found with this tag!</p>
+    }
+</div>

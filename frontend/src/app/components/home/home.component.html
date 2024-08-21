@@ -1,1 +1,8 @@
-<p>home works!</p>
+<div class="articlesContainer">
+    <h1>Latest Articles</h1>
+    @if(article$ | async; as article){
+        <p>Title: {{ article.title }}</p>
+    } @else{
+        <p>There are no articles</p>
+    }
+</div>

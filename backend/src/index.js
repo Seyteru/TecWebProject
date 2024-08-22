@@ -1,7 +1,7 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const articleController = require('./controllers/articleController');
+const authController = require('./controllers/authController');
 
 const app = express();
  
@@ -10,19 +10,15 @@ corsOptions = {
 };
 
 app.use(cors(corsOptions));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/api/articles', articleController);
+app.use('/api/auth', authController);
 
 const database = require('./config/dbconnection');
+
 database.sequelize.sync().then(() => {
     console.log('Database Sync Success!');
-});
-
-app.get('/', (req, res) => {
-    res.json({ message: 'WELCOME TO PRESSPORTAL' })
 });
 
 const PORT = process.env.PORT || 3000;

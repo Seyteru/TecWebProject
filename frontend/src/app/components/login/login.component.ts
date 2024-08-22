@@ -1,39 +1,53 @@
-import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AuthenticationService } from '../../services/authentication.service';
+import { Component, inject, Input, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
-  private authService = inject(AuthenticationService);
   private router = inject(Router);
-  errorMsg = 'Wrong Credentials';
+  private authService = inject(AuthenticationService);
+  private tokenService = inject(TokenService);
 
-  loginForm = new FormGroup({
-    username: new FormControl(""),
-    password: new FormControl("")
-  });
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMsg = 'Wrong Credentials';
+  roles: string[] = [];
+
+  loginForm: any = {
+    username: null,
+    password: null
+  }
+
+  ngOnInit(){
+    if(this.tokenService.getToken()){
+      this.roles = this.tokenService.getUser().roles;
+    }
+  }
 
   onSubmit(){
-    this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(
-      success => {
-        if(success){
-          this.router.navigateByUrl("/home");
-        } else{
-          alert("Login Error. Check Credentials");
-        }
+    const { username, password } = this.loginForm
+    this.authService.login({ username, password }).subscribe({
+      next: params => {
+        this.tokenService.saveToken(params.accessToken);
+        this.tokenService.saveUser(params);
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.roles = this.tokenService.getUser().roles;
+        this.router.navigate(['/home']);
       },
-      error => {
-        console.error("Login Error", error);
-        alert("Login Error");
+      error: error => {
+        this.errorMsg = error.error.message;
+        this.isLoginFailed = true;
       }
-    )
+    });
   }
 }

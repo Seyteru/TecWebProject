@@ -1,19 +1,17 @@
-<div class="articlesDetailContainer">
-    <h1>{{ article?.getTitle() }}</h1>
-    <h2>{{ article?.getSubtitle }}</h2>
-    <!--Wrote by author(get the author of the article)-->
-    @if(article?.getLastModified){
-        <p>
-            Last Modified: {{ article?.getLastModified}}
-        </p>
-    }
-    <div class="articleBody" [innerHTML]="article?.getBody"></div>
-    <div class="tag">
-        <h3>Tags: </h3>
-        @for (tg of article?.getTag(); track tg) {
-            <span>
-                <a [routerLink]="['/tag', tg]">{{ tg }}</a>
-            </span>
+@if(article){
+    <div>
+        <h2>{{article.title}}</h2>
+        <h3>{{article.subtitle}}</h3>
+        <p><em>Created in: {{article.createdAt}}</em></p>
+        @if(article.updatedAt){
+            <p><em>Modified in: {{article.updatedAt}}</em></p>
         }
+        <div><p>{{article.body}}</p></div>
+        <div>
+            <strong>Tags: </strong>
+            @for (tag of article.tags; track tag) {
+                <span>{{tag}}</span>
+            }
+        </div>
     </div>
-</div>
+}

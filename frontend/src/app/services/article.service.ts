@@ -2,7 +2,6 @@ import { inject, Injectable } from '@angular/core';
 import { Article } from '../datamodels/Article';
 import { catchError, Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,6 @@ import { AuthenticationService } from './authentication.service';
 export class ArticleService {
 
   private url = 'http://localhost:3000/api/articles';
-  private authService = inject(AuthenticationService)
   constructor(private http: HttpClient){}
 
   getLatestArticles(): Observable<any>{
@@ -35,17 +33,15 @@ export class ArticleService {
   }
 
   updateArticleById(article: Article): Observable<Article>{
-    const restUrl = `${this.url}/${article.getArticleId}`;
-    const headers = this.getAuthHeaders();
-    return this.http.put<Article>(restUrl, article, { headers }).pipe(
+    const restUrl = `${this.url}/${article.articleId}`;
+    return this.http.put<Article>(restUrl, article).pipe(
       catchError(this.handleError<Article>('updateArticle'))
     );
   }
 
   deleteArticleById(articleId: number): Observable<unknown>{
     const restUrl = `${this.url}/${articleId}`;
-    const headers = this.getAuthHeaders();
-    return this.http.delete(restUrl, { headers }).pipe(
+    return this.http.delete(restUrl).pipe(
       catchError(this.handleError('deleteArticleById'))
     );
   }
@@ -55,14 +51,6 @@ export class ArticleService {
       console.error(`${operation} failure: ${error.message}`);
       return of(result as T);
     };
-  }
-
-  private getAuthHeaders(): HttpHeaders {
-    const token = this.authService.getToken();
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
   }
 
 }

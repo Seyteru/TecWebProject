@@ -1,1 +1,18 @@
-<p>ArticleList Works</p>
+@if(articles.length > 0){
+    <div>
+        @for (article of articles; track article) {
+            <div>
+                <h2>{{article.title}}</h2>
+                <h3>{{article.subtitle}}</h3>
+                <p><em>Created in: {{article.createdAt}}</em></p>
+                @if(article.updatedAt){
+                    <p><em>Modified in: {{article.updatedAt}}</em></p>
+                }
+                <p>{{article.body}}</p>
+                <a [routerLink]="['/articles', 'article.articleId']"></a>
+            </div>
+        }
+    </div>
+} @else {
+    <p>There are no Articles!</p>
+}

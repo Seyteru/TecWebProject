@@ -3,19 +3,19 @@
     <form (ngSubmit)="onSubmit()">
         <div class="formGroup">
             <label for="title">Title</label>
-            <input id="title" [(ngModel)]="newArticle.title" name="title" />
+            <input id="title" [(ngModel)]="article.title" name="title" />
         </div>
         <div class="formGroup">
             <label for="subtitle">Subtitle</label>
-            <input id="subtitle" [(ngModel)]="newArticle.subtilte" name="body" />
+            <input id="subtitle" [(ngModel)]="article.subtitle" name="body" />
         </div>
         <div class="formGroup">
             <label for="body">Body</label>
-            <textarea id="body" rows="10" [(ngModel)]="newArticle.body" name="body"></textarea>
+            <textarea id="body" rows="10" [(ngModel)]="article.body" name="body"></textarea>
         </div>
         <div class="formGroup">
             <label for="tag">Tag (divided by comma)</label>
-            <input id="tag" [(ngModel)]="newArticle.tag" name="tag"/>
+            <input id="tag" [(ngModel)]="article.tags" name="tag"/>
         </div>
         <button type="submit">Create Article</button>
     </form>

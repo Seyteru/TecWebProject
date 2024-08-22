@@ -14,25 +14,23 @@ export class ArticleDetailComponent implements OnInit{
 
   private articleService = inject(ArticleService);
   private route = inject(ActivatedRoute);
+
   article: Article | undefined;
 
   ngOnInit(){
-    const id = Number(this.route.snapshot.paramMap.get("articleId"));
-    if(id){
-      this.articleService.getArticleById(id).subscribe(
-        data => {
-          this.article = data;
-        },
-        error => {
-          console.error("Error to retrieve articles", error);
-        }
-      )
-    }
+    this.getArticleDetails(this.route.snapshot.params['articleId']);
   }
 
-  tagClick(tag: string){
-    //Filter by tag
-    console.log(`Tag clicked: ${tag}`)
+  getArticleDetails(id: number){
+    this.articleService.getArticleById(id).subscribe({
+      next: (articleRetrieved) => {
+        this.article = articleRetrieved;
+      },
+      error: (error) => {
+        alert('Error on Get Article Details!');
+        console.error(error);
+      }
+    });
   }
 
 }

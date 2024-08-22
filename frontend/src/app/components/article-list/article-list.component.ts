@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Article } from '../../datamodels/Article';
+import { ArticleService } from '../../services/article.service';
 
 @Component({
   selector: 'app-article-list',
@@ -9,18 +10,25 @@ import { Article } from '../../datamodels/Article';
   templateUrl: './article-list.component.html',
   styleUrl: './article-list.component.scss'
 })
-export class ArticleListComponent {
+export class ArticleListComponent implements OnInit{
 
-  @Input() articles: Article[] = [];
-  @Input() showExtract: boolean = false;
-  // @Output() pageChange: new EventEmitter<number>();
+  articles: Article[] = [];
 
-  tagClick(tag: string){
-    //Filter by tag
-    console.log(`Tag clicked: ${tag}`)
+  private articleService = inject(ArticleService);
+
+  ngOnInit(){
+    this.getLatestArticleList();
   }
 
-  // changePage(pageNumber: number){
-  //   this.pageChange.emit(pageNumber);
-  // }
+  getLatestArticleList(){
+    this.articleService.getLatestArticles().subscribe({
+      next: (articlesRetrieved) => {
+        this.articles = articlesRetrieved;
+      },
+      error: (error) => {
+        alert('Error on Get Latest Articles!');
+        console.error(error);
+      }
+    });
+  }
 }

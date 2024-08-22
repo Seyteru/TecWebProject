@@ -1,9 +1,10 @@
 const express = require('express');
 const articleCrud = require('../crud/articleCrud');
+const authenticateToken = require('../middleware/authMiddleware');
 
 const articleController = express.Router();
 
-articleController.post('/', async(req, res) => {
+articleController.post('/', authenticateToken, async(req, res) => {
     try {
         const article = await articleCrud.createArticle(req.body);
         res.status(201).json(article);

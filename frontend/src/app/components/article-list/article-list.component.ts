@@ -13,15 +13,16 @@ import { ArticleService } from '../../services/article.service';
 export class ArticleListComponent implements OnInit{
 
   articles: Article[] = [];
+  currentPage: number = 1;
 
   private articleService = inject(ArticleService);
 
   ngOnInit(){
-    this.getLatestArticleList();
+    this.getLatestArticleList(this.currentPage);
   }
 
-  getLatestArticleList(){
-    this.articleService.getLatestArticles().subscribe({
+  getLatestArticleList(page: number){
+    this.articleService.getLatestArticles(page).subscribe({
       next: (articlesRetrieved) => {
         this.articles = articlesRetrieved;
       },
@@ -31,4 +32,13 @@ export class ArticleListComponent implements OnInit{
       }
     });
   }
+
+  onPageChange(page: number){
+    this.getLatestArticleList(page);
+  }
+
+  totalPages(): number{
+    return Math.ceil(this.articles.length / 10)
+  }
+
 }

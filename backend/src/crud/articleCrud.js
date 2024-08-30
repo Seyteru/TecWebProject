@@ -1,13 +1,14 @@
 const { where } = require('sequelize');
 const { Article } = require('../config/dbconnection');
 
-const createArticle = async(articleParams) => {
-    return await Article.create(articleParams);
+const createArticle = async(articleParams, userId) => {
+    return await Article.create(articleParams, userId);
 };
 
-const getLatestArticlesWithLimit = async() => {
+const getLatestArticlesWithLimit = async(limit, page) => {
     return await Article.findAll({
-        limit: 10,
+        limit: limit,
+        offset: (page - 1) * limit,
         order: [['createdAt', 'DESC']]
     });
 };

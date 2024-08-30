@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit{
   articles: Observable<any> | undefined;
 
   ngOnInit(): void{
-    this.articles = this.articleService.getLatestArticles();
+    this.articles = this.articleService.getLatestArticles(1);
   }
 
 }

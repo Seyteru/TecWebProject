@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Article } from '../datamodels/Article';
 import { catchError, Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ArticleService {
 
   private url = 'http://localhost:3000/api/articles';
-  constructor(private http: HttpClient){}
+  private http = inject(HttpClient);
+  private tokenService = inject(TokenService);
 
-  getLatestArticles(): Observable<any>{
-    return this.http.get<any>(this.url);
+  getLatestArticles(page: number): Observable<any>{
+    return this.http.get<any>(`${this.url}/latest/${page}`);
   }
 
   getArticleById(articleId: number): Observable<Article>{
@@ -28,8 +30,9 @@ export class ArticleService {
   }
 
   createArticle(article: any): Observable<any>{
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(this.url, article, { headers });
+    return this.http.post<any>(this.url, article, {
+      headers: { Authorization: `Bearer ${this.tokenService.getToken()}` }
+    });
   }
 
   updateArticleById(article: Article): Observable<Article>{

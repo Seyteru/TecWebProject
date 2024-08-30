@@ -26,7 +26,7 @@ export const routes: Routes = [
         component: ArticleDetailComponent
     },
     {
-        path: 'articleCreation',
+        path: 'article-creation',
         title: 'Article Creation',
         component: ArticleCreationComponent
     },

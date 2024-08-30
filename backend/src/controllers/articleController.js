@@ -6,16 +6,18 @@ const articleController = express.Router();
 
 articleController.post('/', authenticateToken, async(req, res) => {
     try {
-        const article = await articleCrud.createArticle(req.body);
+        const article = await articleCrud.createArticle(req.body, req.userId);
         res.status(201).json(article);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-articleController.get('/latest', async(req, res) => {
+articleController.get('/latest/:page', async(req, res) => {
     try {
-        const articles = await articleCrud.getLatestArticlesWithLimit();
+        const limit = 10;
+        const page = parseInt(req.params.page, 10) || 1
+        const articles = await articleCrud.getLatestArticlesWithLimit(limit, page);
         res.status(200).json(articles);
     } catch (error) {
         res.status(500).json({ error: error.message });

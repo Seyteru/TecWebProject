@@ -19,7 +19,7 @@ Article.belongsTo(User, {
     foreignKey: 'userId'
 });
 
-module.exports = { sequelize, User, Article};
+module.exports = { sequelize, User, Article };
 
 
 

@@ -10,9 +10,9 @@ module.exports = (sequelize, Sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        isAdmin: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false
+        role: {
+            type: DataTypes.STRING,
+            allowNull: true
         },
         createdAt: {
             type: DataTypes.DATE,

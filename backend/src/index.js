@@ -17,7 +17,7 @@ app.use('/api/auth', authController);
 
 const database = require('./config/dbconnection');
 
-database.sequelize.sync().then(() => {
+database.sequelize.sync({force: false}).then(() => {
     console.log('Database Sync Success!');
 });
 

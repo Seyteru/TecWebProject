@@ -11,8 +11,11 @@
         </div>
         <div class="formGroup">
             <label for="body">Body</label>
-            <textarea id="body" rows="10" [(ngModel)]="article.body" name="body"></textarea>
+            <textarea class="markdown-editor" id="body" rows="10" [(ngModel)]="body" name="body"></textarea>
         </div>
+        <markdown>
+            MarkDown
+        </markdown>
         <div class="formGroup">
             <label for="tag">Tag (divided by comma)</label>
             <input id="tag" [(ngModel)]="article.tags" name="tag"/>

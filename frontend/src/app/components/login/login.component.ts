@@ -1,5 +1,5 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { TokenService } from '../../services/token.service';
@@ -7,47 +7,38 @@ import { TokenService } from '../../services/token.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent {
+
+  loginForm: FormGroup;
+  errorMsg: string = '';
 
   private router = inject(Router);
   private authService = inject(AuthenticationService);
   private tokenService = inject(TokenService);
+  private formBuilder = inject(FormBuilder);
 
-  isLoggedIn = false;
-  isLoginFailed = false;
-  errorMsg = 'Wrong Credentials';
-  roles: string[] = [];
-
-  loginForm: any = {
-    username: null,
-    password: null
-  }
-
-  ngOnInit(){
-    if(this.tokenService.getToken()){
-      this.roles = this.tokenService.getUser().roles;
-    }
+  constructor(){
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
   onSubmit(){
-    const { username, password } = this.loginForm
-    this.authService.login({ username, password }).subscribe({
-      next: params => {
-        this.tokenService.saveToken(params.accessToken);
-        this.tokenService.saveUser(params);
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.roles = this.tokenService.getUser().roles;
-        this.router.navigate(['/home']);
-      },
-      error: error => {
-        this.errorMsg = error.error.message;
-        this.isLoginFailed = true;
-      }
-    });
+    if(this.loginForm.valid){
+      this.authService.login(this.loginForm.value).subscribe({
+        next: () => {
+          alert('Login Success!');
+          this.router.navigate(['/home']);
+        },
+        error: () => {
+          this.errorMsg = 'Invalid Username or Password';
+        }
+      });
+    }
   }
 }

@@ -1,0 +1,15 @@
+<mat-toolbar class="mat-elevation-z3">
+    <button mat-icon-button (click)="collapsed.set(!collapsed())">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>Press Portal</span>
+</mat-toolbar>
+<mat-sidenav-container class="sidenavContainer">
+    <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
+        <app-sidebar-list></app-sidebar-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="content" [style.margin-left]="sidenavWidth()">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+

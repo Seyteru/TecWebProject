@@ -16,3 +16,9 @@
 } @else {
     <p>There are no Articles!</p>
 }
+
+<div class="pagination">
+    <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage == 1">Back</button>
+    <span>Page {{ currentPage }} of </span>
+    <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage == 10">Forward</button>
+</div>

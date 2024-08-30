@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { TokenService } from './token.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,23 @@ export class AuthenticationService {
 
   private http = inject(HttpClient);
   private tokenService = inject(TokenService);
+  private router = inject(Router)
 
   login(credentials: { username: string, password: string }): Observable<any>{
-    return this.http.post(`${this.url}/login`, credentials);
+    return this.http.post(`${this.url}/login`, credentials).pipe(
+      tap( res => {
+        this.tokenService.saveToken(res.toString());
+      })
+    );
   }
 
   logout(){
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('authUser');
+    this.tokenService.signOut();
+    this.router.navigate(['/login']);
+  }
+
+  isLoggedIn(): boolean{
+    const token = this.tokenService.getToken();
+    return token != null;
   }
 }

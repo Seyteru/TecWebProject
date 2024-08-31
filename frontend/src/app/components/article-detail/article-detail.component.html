@@ -8,10 +8,7 @@
         }
         <div><p>{{article.body}}</p></div>
         <div>
-            <strong>Tags: </strong>
-            @for (tag of article.tags; track tag) {
-                <span>{{tag}}</span>
-            }
+            <h4>{{article.tags?.join(' - ')}}</h4>
         </div>
     </div>
 }

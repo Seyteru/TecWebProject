@@ -21,7 +21,7 @@ export const routes: Routes = [
         component: LoginComponent
     },
     {
-        path: 'articleDetail', //Change with parametric route
+        path: 'article/:id',
         title: 'Article Detail',
         component: ArticleDetailComponent
     },

@@ -2,7 +2,9 @@
     <div>
         @for (article of articles; track article) {
             <div>
-                <h2>{{article.title}}</h2>
+                <h2>
+                    <a [routerLink]="['/article', article.articleId]">{{article.title}}</a>
+                </h2>
                 <h3>{{article.subtitle}}</h3>
                 <p><em>Created in: {{article.createdAt}}</em></p>
                 @if(article.updatedAt){
@@ -11,6 +13,7 @@
                 <p>{{article.body}}</p>
                 <a [routerLink]="['/articles', 'article.articleId']"></a>
                 <h4>{{article.tags?.join(' - ')}}</h4>
+                <a [routerLink]="['/article', article.articleId]">Read More...</a>
             </div>
         }
     </div>

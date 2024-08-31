@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
 import { Router } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Article } from '../../datamodels/Article';
 import { MarkdownModule } from 'ngx-markdown'
 
@@ -13,23 +13,35 @@ import { MarkdownModule } from 'ngx-markdown'
   styleUrl: './article-creation.component.scss'
 })
 export class ArticleCreationComponent {
-  article: Article = new Article();
 
   private articleService = inject(ArticleService);
+  private formBuilder = inject(FormBuilder);
   private router = inject(Router);
-  body: string = '';
+  createArticleForm: FormGroup;
+  errorMsg: string = '';
+
+  constructor(){
+    this.createArticleForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      subtitle: ['', Validators.required],
+      body: ['', Validators.required]
+    });
+  }
 
   onSubmit(){
-    this.articleService.createArticle(this.article).subscribe({
-      next: (createdArticle) => {
-        alert('Article Creation Success!');
-        this.router.navigate(['/home']);
-      },
-      error: (error) => {
-        alert('Error on Create Article!');
-        console.error(error);
-      }
-    });
+    if(this.createArticleForm.valid){
+      this.articleService.createArticle(this.createArticleForm.value).subscribe({
+        next: () => {
+          alert('Article Creation Success!');
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          this.errorMsg = 'Error on Create Article!'
+          alert( `Article: ${this.createArticleForm.value} ${error.message}` );
+          console.error(error);
+        }
+      });
+    }
   }
 
 }

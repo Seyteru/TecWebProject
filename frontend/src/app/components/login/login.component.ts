@@ -18,7 +18,6 @@ export class LoginComponent {
 
   private router = inject(Router);
   private authService = inject(AuthenticationService);
-  private tokenService = inject(TokenService);
   private formBuilder = inject(FormBuilder);
 
   constructor(){

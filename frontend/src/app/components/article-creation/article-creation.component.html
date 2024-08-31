@@ -1,25 +1,40 @@
 <div class="articleCreationContainer">
     <h2>Create a new Article</h2>
-    <form (ngSubmit)="onSubmit()">
+    <form [formGroup]="createArticleForm" (ngSubmit)="onSubmit()">
         <div class="formGroup">
             <label for="title">Title</label>
-            <input id="title" [(ngModel)]="article.title" name="title" />
+            <input id="title" formControlName="title" name="title" type="text" placeholder="Enter Title" />
+            @if(createArticleForm.get('title')?.invalid && createArticleForm.get('title')?.touched){
+                <div>
+                    Title is Required
+                </div>
+            }
         </div>
         <div class="formGroup">
             <label for="subtitle">Subtitle</label>
-            <input id="subtitle" [(ngModel)]="article.subtitle" name="body" />
+            <input id="subtitle" formControlName="subtitle" name="subtitle" type="text" placeholder="Enter Subtitle" />
+            @if(createArticleForm.get('subtitle')?.invalid && createArticleForm.get('subtitle')?.touched){
+                <div>
+                    Subtitle is Required
+                </div>
+            }
         </div>
         <div class="formGroup">
             <label for="body">Body</label>
-            <textarea class="markdown-editor" id="body" rows="10" [(ngModel)]="body" name="body"></textarea>
+            <textarea id="body" formControlName="body" name="body" type="text" placeholder="Enter Body"></textarea>
+            @if(createArticleForm.get('body')?.invalid && createArticleForm.get('body')?.touched){
+                <div>
+                    Body is Required
+                </div>
+            }
         </div>
-        <markdown>
-            MarkDown
-        </markdown>
         <div class="formGroup">
-            <label for="tag">Tag (divided by comma)</label>
-            <input id="tag" [(ngModel)]="article.tags" name="tag"/>
+            <label for="tags">Tags (divided by comma)</label>
+            <input id="tags" formControlName="tags" name="tags" type="text" placeholder="Enter Tag" />
         </div>
-        <button type="submit">Create Article</button>
+        @if(errorMsg){
+            <div class="errorMsg">{{ errorMsg }}</div>
+        }
+        <button type="submit" [disabled]="createArticleForm.invalid">Create Article</button>
     </form>
 </div>

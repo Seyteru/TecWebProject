@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
 import { Router } from '@angular/router';
-import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Article } from '../../datamodels/Article';
 import { MarkdownModule } from 'ngx-markdown'
 
@@ -24,8 +24,21 @@ export class ArticleCreationComponent {
     this.createArticleForm = this.formBuilder.group({
       title: ['', Validators.required],
       subtitle: ['', Validators.required],
-      body: ['', Validators.required]
+      body: ['', Validators.required],
+      tags: this.formBuilder.array([])
     });
+  }
+
+  get tags(): FormArray{
+    return this.createArticleForm.get('tags') as FormArray;
+  }
+
+  addTag(tag: string){
+    this.tags.push(this.formBuilder.control(tag));
+  }
+
+  removeTag(index: number){
+    this.tags.removeAt(index);
   }
 
   onSubmit(){

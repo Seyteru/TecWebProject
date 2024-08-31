@@ -10,6 +10,7 @@
                 }
                 <p>{{article.body}}</p>
                 <a [routerLink]="['/articles', 'article.articleId']"></a>
+                <h4>{{article.tags?.join(' - ')}}</h4>
             </div>
         }
     </div>

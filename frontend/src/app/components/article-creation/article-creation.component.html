@@ -29,9 +29,16 @@
             }
         </div>
         <div class="formGroup">
-            <label for="tags">Tags (divided by comma)</label>
-            <input id="tags" formControlName="tags" name="tags" type="text" placeholder="Enter Tag" />
+            <label for="tags">Tags</label>
+            @for (tag of tags.controls; track tag; let idx = $index) {
+                <div>
+                    <input id="tags" formControlName="tags" name="tags" type="text" placeholder="Enter Tags" />
+                    <button type="button" (click)="removeTag(idx)">Remove</button>
+                </div>
+            }
         </div>
+        <input #newTag />
+        <button type="button" (click)="addTag(newTag.value); newTag.value = ''">Add Tag</button>
         @if(errorMsg){
             <div class="errorMsg">{{ errorMsg }}</div>
         }

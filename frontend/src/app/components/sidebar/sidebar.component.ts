@@ -23,30 +23,7 @@ export type MenuItem = {
 })
 export class SidebarComponent {
 
-  menuItems = signal<MenuItem[]>([
-    {
-      icon: 'home',
-      text: 'Home',
-      route: 'home'
-    },
-    {
-      icon: 'create',
-      text: 'Create Article',
-      route: 'article-reation'
-    },
-    {
-      icon: 'login',
-      text: 'Login',
-      route: 'login'
-    },
-    {
-      icon: 'logout',
-      text: 'Logout',
-      route: 'home'
-    }
-  ]);
-
-  collapsed = signal(false);
+  collapsed = signal(true);
   sidenavWidth = computed( () => this.collapsed() ? '58px' : '250px' );
 
 

@@ -19,17 +19,17 @@ export class ArticleDetailComponent implements OnInit{
   article: Article | undefined;
 
   ngOnInit(){
-    this.getArticleDetails(this.route.snapshot.params['articleId']);
+    this.getArticleDetails();
   }
 
-  getArticleDetails(id: number){
-    const articleId = Number(this.route.snapshot.paramMap.get('articleId'));
+  getArticleDetails(){
+    const articleId = Number(this.route.snapshot.paramMap.get('id'));
     if(articleId){
       this.articleService.getArticleById(articleId).subscribe({
-        next: (articleRetrieved) => {
+        next: (articleRetrieved: Article) => {
           this.article = articleRetrieved;
         }, 
-        error: (error) => {
+        error: () => {
           alert('Error on Get Article!')
           this.router.navigate(['/home']);
         }

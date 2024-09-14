@@ -1,4 +1,4 @@
-.articleCreationContainer {
+.article-creation-container {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
@@ -11,7 +11,7 @@
       margin-bottom: 20px;
     }
   
-    .formGroup {
+    .creation-title, .creation-subtitle, .creation-body, .creation-tags {
       margin-bottom: 15px;
   
       label {
@@ -46,12 +46,3 @@
       }
     }
   }
-
-.markdown-editor {
-  width: 100%;
-  padding: 10px;
-  font-family: monospace;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-}

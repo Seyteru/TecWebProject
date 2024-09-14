@@ -1,9 +1,9 @@
 @if(articles.length > 0){
-    <div>
+    <div class="articlesList">
         @for (article of articles; track article) {
             <div>
                 <h2>
-                    <a [routerLink]="['/article', article.articleId]">{{article.title}}</a>
+                    <a [routerLink]="['/article', article.id]">{{article.title}}</a>
                 </h2>
                 <h3>{{article.subtitle}}</h3>
                 <p><em>Created in: {{article.createdAt}}</em></p>
@@ -12,8 +12,8 @@
                 }
                 <p>{{article.body}}</p>
                 <a [routerLink]="['/articles', 'article.articleId']"></a>
-                <h4>{{article.tags?.join(' - ')}}</h4>
-                <a [routerLink]="['/article', article.articleId]">Read More...</a>
+                <a [routerLink]=""><h4>{{article.tags?.join(' - ')}}</h4></a>
+                <a [routerLink]="['/article', article.id]">Read More...</a>
             </div>
         }
     </div>
@@ -22,7 +22,7 @@
 }
 
 <div class="pagination">
-    <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage == 1">Back</button>
-    <span>Page {{ currentPage }} of </span>
-    <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage == 10">Forward</button>
+    <button (click)="onPageBack(currentPage)" [disabled]="currentPage == 1">Back</button>
+    <span>Page {{ currentPage }} of {{ totalPages() }}</span>
+    <button (click)="onPageForward(currentPage)" [disabled]="currentPage == totalPages()">Forward</button>
 </div>

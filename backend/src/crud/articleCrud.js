@@ -1,4 +1,3 @@
-const { where } = require('sequelize');
 const { Article } = require('../config/dbconnection');
 
 const createArticle = async(articleParams, userId) => {
@@ -7,6 +6,17 @@ const createArticle = async(articleParams, userId) => {
 
 const getLatestArticlesWithLimit = async(limit, page) => {
     return await Article.findAll({
+        limit: limit,
+        offset: (page - 1) * limit,
+        order: [['createdAt', 'DESC']]
+    });
+};
+
+const getLatestArticlesByTag = async(limit, page, tag) => {
+    return await Article.findAll({
+        where: {
+            tags: tag 
+        },
         limit: limit,
         offset: (page - 1) * limit,
         order: [['createdAt', 'DESC']]
@@ -50,4 +60,4 @@ const deleteArticleById = async(id) => {
     }
 };
 
-module.exports = { createArticle, getLatestArticlesWithLimit, getAllArticles, getArticleById, getLatestAuthorArticles, updateArticleById, deleteArticleById };
+module.exports = { createArticle, getLatestArticlesWithLimit, getAllArticles, getArticleById, getLatestAuthorArticles, updateArticleById, deleteArticleById, getLatestArticlesByTag };

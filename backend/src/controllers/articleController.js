@@ -24,6 +24,18 @@ articleController.get('/latest/:page', async(req, res) => {
     }
 });
 
+articleController.get('/latest/:tag/:page', async(req, res) => {
+    try {
+        const limit = 10;
+        const page = parseInt(req.params.page, 10) || 1;
+        const tag = req.params.tags;
+        const articles = await articleCrud.getLatestArticlesByTag(limit, page, tag);
+        res.status(200).json(articles);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 articleController.get('/', async(req, res) => {
     try {
         const articles = await articleCrud.getAllArticles();

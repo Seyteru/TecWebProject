@@ -32,13 +32,18 @@ export class SidebarListComponent {
     {
       icon: 'create',
       text: 'Create Article',
-      route: 'article-reation'
+      route: 'article-creation'
     },
     {
       icon: 'login',
       text: 'Login',
       route: 'login'
     },
+    {
+      icon: 'logout',
+      text: 'Logout',
+      route: 'home'
+    }
   ]);
 
   isAdmin(): boolean{

@@ -13,8 +13,12 @@ export class ArticleService {
   private http = inject(HttpClient);
   private tokenService = inject(TokenService);
 
-  getLatestArticles(page: number): Observable<any>{
+  getLatestArticles(page: number): Observable<Article[]>{
     return this.http.get<any>(`${this.url}/latest/${page}`);
+  }
+
+  getLatestArticlesByTag(tag: string, page: number): Observable<Article[]>{
+    return this.http.get<any>(`${this.url}/latest/${tag}/${page}`);
   }
 
   getArticleById(articleId: number): Observable<Article>{
@@ -36,7 +40,7 @@ export class ArticleService {
   }
 
   updateArticleById(article: Article): Observable<Article>{
-    const restUrl = `${this.url}/${article.articleId}`;
+    const restUrl = `${this.url}/${article.id}`;
     return this.http.put<Article>(restUrl, article).pipe(
       catchError(this.handleError<Article>('updateArticle'))
     );

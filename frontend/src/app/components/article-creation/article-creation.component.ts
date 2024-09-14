@@ -2,13 +2,12 @@ import { Component, inject } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { Article } from '../../datamodels/Article';
-import { MarkdownModule } from 'ngx-markdown'
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-article-creation',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, MarkdownModule ],
+  imports: [ReactiveFormsModule, FormsModule, MatIcon],
   templateUrl: './article-creation.component.html',
   styleUrl: './article-creation.component.scss'
 })

@@ -1,11 +1,11 @@
 export class Article{
 
-    articleId: number | null | undefined;
+    id: number | null | undefined;
     title: string | null | undefined;
     subtitle: string | null | undefined;
     body: string | null | undefined;
-    createdAt: Date | null | undefined;
-    updatedAt: Date | null | undefined;
+    createdAt: Date = new Date();
+    updatedAt: Date = new Date();
     tags: string[] | null | undefined;
 
     constructor(){} 

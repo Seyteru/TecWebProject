@@ -28,17 +28,12 @@
                 </div>
             }
         </div>
-        <div class="creation-tags">
-            <label for="tags">Tags</label>
-            @for (tag of tags.controls; track tag; let idx = $index) {
-                <div>
-                    <input id="tags" formControlName="tags" name="tags" type="text" placeholder="Enter Tags" />
-                    <button type="button" (click)="removeTag(idx)">Remove</button>
-                </div>
-            }
+        <div class="creation-tagList" formArrayName="tags">
+        @for (tag of tags.controls; track tag; let idx = $index) {
+            <button type="button" (click)="removeTag(idx)">{{tag.value}}</button>
+        }
         </div>
-        <input #newTag id="tags" formControlName="tags" name="tags" type="text" placeholder="Enter Tags" />
-        <button type="button" (click)="addTag(newTag.value); newTag.value = ''">Add Tag</button>
+        <input #newTag (keyup.enter)="addTag(newTag.value); newTag.value = ''"/>
         @if(errorMsg){
             <div class="errorMsg">{{ errorMsg }}</div>
         }

@@ -16,7 +16,7 @@ articleController.post('/', authenticateToken, async(req, res) => {
 articleController.get('/latest/:page', async(req, res) => {
     try {
         const limit = 10;
-        const page = parseInt(req.params.page, 10) || 1
+        const page = parseInt(req.params.page) || 1;
         const articles = await articleCrud.getLatestArticlesWithLimit(limit, page);
         res.status(200).json(articles);
     } catch (error) {

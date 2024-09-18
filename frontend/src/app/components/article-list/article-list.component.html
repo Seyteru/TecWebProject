@@ -22,7 +22,7 @@
 }
 
 <div class="pagination">
-    <button (click)="onPageBack(currentPage)" [disabled]="currentPage == 1">Back</button>
+    <button (click)="onPageBack()" [disabled]="currentPage == 1">Back</button>
     <span>Page {{ currentPage }} of {{ totalPages() }}</span>
-    <button (click)="onPageForward(currentPage)" [disabled]="currentPage == totalPages()">Forward</button>
+    <button (click)="onPageForward()" [disabled]="currentPage == totalPages()">Forward</button>
 </div>

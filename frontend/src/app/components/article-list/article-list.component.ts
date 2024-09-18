@@ -33,14 +33,14 @@ export class ArticleListComponent implements OnInit{
     });
   }
 
-  onPageForward(page: number){
+  onPageForward(){
     this.currentPage = this.currentPage + 1;
-    this.getLatestArticleList(page);
+    this.getLatestArticleList(this.currentPage);
   }
 
-  onPageBack(page: number){
+  onPageBack(){
     this.currentPage = this.currentPage - 1;
-    this.getLatestArticleList(page);
+    this.getLatestArticleList(this.currentPage);
   }
 
   totalPages(): number{

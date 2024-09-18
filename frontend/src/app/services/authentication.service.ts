@@ -23,6 +23,12 @@ export class AuthenticationService {
     );
   }
 
+  register(credentials: { username: string, password: string, role: string }): Observable<any>{
+    return this.http.post(`${this.url}/register`, credentials, {
+      headers: { Authorization: `Bearer ${this.tokenService.getToken()}` }
+    });
+  }
+
   logout(){
     this.tokenService.signOut();
     this.router.navigate(['/login']);

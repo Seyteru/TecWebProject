@@ -4,8 +4,8 @@
         <span matListItemTitle>Home</span>
     </a>
     @if(isAdmin()){
-        <a mat-list-item [routerLink]="'create-user'" routerLinkActive="selectedMenuItem" #rla="routerLinkActive" [activated]="rla.isActive">
-            <mat-icon matListItemIcon>create</mat-icon>
+        <a mat-list-item [routerLink]="'register'" routerLinkActive="selectedMenuItem" #rla="routerLinkActive" [activated]="rla.isActive">
+            <mat-icon matListItemIcon>face</mat-icon>
             <span matListItemTitle>Create User</span>
         </a>
     }

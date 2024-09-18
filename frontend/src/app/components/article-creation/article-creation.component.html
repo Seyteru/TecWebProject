@@ -33,7 +33,10 @@
             <button type="button" (click)="removeTag(idx)">{{tag.value}}</button>
         }
         </div>
-        <input #newTag (keyup.enter)="addTag(newTag.value); newTag.value = ''"/>
+        <div class="creation-tags">
+            <label>Tag</label>
+            <input #newTag (keyup.enter)="addTag(newTag.value); newTag.value = ''"/>
+        </div>
         @if(errorMsg){
             <div class="errorMsg">{{ errorMsg }}</div>
         }

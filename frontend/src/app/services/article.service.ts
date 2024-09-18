@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Article } from '../datamodels/Article';
 import { catchError, Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { TokenService } from './token.service';
 
 @Injectable({
@@ -12,6 +12,10 @@ export class ArticleService {
   private url = 'http://localhost:3000/api/articles';
   private http = inject(HttpClient);
   private tokenService = inject(TokenService);
+
+  getArticlesNumber(): Observable<{ totalArticles: number }>{
+    return this.http.get<{ totalArticles: number }>(`${this.url}/count`);
+  }
 
   getLatestArticles(page: number): Observable<Article[]>{
     return this.http.get<any>(`${this.url}/latest/${page}`);

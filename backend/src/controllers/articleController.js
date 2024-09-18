@@ -13,6 +13,15 @@ articleController.post('/', authenticateToken, async(req, res) => {
     }
 });
 
+articleController.get('/count', async(req, res) => {
+    try{
+        const totalArticles = await articleCrud.getArticlesNumber();
+        res.status(200).json({ totalArticles });
+    } catch(error){
+        res.status(500).json({ error: error.message });
+    }
+});
+
 articleController.get('/latest/:page', async(req, res) => {
     try {
         const limit = 10;

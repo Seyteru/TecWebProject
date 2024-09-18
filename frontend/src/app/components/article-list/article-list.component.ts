@@ -13,12 +13,26 @@ import { ArticleService } from '../../services/article.service';
 export class ArticleListComponent implements OnInit{
 
   articles: Article[] = [];
+  totalArticles: number = 0;
   currentPage: number = 1;
 
   private articleService = inject(ArticleService);
 
   ngOnInit(){
+    this.getArticlesNumber();
     this.getLatestArticleList(this.currentPage);
+  }
+
+  getArticlesNumber(){
+    this.articleService.getArticlesNumber().subscribe({
+      next: (articlesNumber) => {
+        this.totalArticles = articlesNumber.totalArticles;
+      },
+      error: (error) => {
+        alert('Error on Get Articles Number');
+        console.error(error);
+      }
+    });
   }
 
   getLatestArticleList(page: number){
@@ -44,10 +58,10 @@ export class ArticleListComponent implements OnInit{
   }
 
   totalPages(): number{
-    if(this.articles.length == 0){
+    if(this.totalArticles == 0){
       return 1;
     } else{
-      return Math.ceil(this.articles.length / 10);
+      return Math.ceil(this.totalArticles / 10);
     }
   }
 

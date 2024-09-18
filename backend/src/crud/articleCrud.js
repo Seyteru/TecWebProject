@@ -23,6 +23,10 @@ const getLatestArticlesByTag = async(limit, page, tag) => {
     });
 };
 
+const getArticlesNumber = async() => {
+    return await Article.count();
+}
+
 const getAllArticles = async() => {
     return await Article.findAll();
 };
@@ -60,4 +64,4 @@ const deleteArticleById = async(id) => {
     }
 };
 
-module.exports = { createArticle, getLatestArticlesWithLimit, getAllArticles, getArticleById, getLatestAuthorArticles, updateArticleById, deleteArticleById, getLatestArticlesByTag };
+module.exports = { createArticle, getArticlesNumber ,getLatestArticlesWithLimit, getAllArticles, getArticleById, getLatestAuthorArticles, updateArticleById, deleteArticleById, getLatestArticlesByTag };

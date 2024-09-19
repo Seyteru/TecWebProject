@@ -6,7 +6,7 @@
         @if(article.updatedAt){
             <p><em>Modified in: {{article.updatedAt}}</em></p>
         }
-        <div><p>{{article.body}}</p></div>
+        <markdown>{{article.body}}</markdown>
         <div>
             <h4>{{article.tags?.join(' - ')}}</h4>
         </div>

@@ -6,6 +6,7 @@ import { ArticleCreationComponent } from './components/article-creation/article-
 import { RegisterComponent } from './components/register/register.component';
 import { authorizationGuard } from './authorization.guard';
 import { UserArticleListComponent } from './components/user-article-list/user-article-list.component';
+import { TagListComponent } from './components/tag-list/tag-list.component';
 
 export const routes: Routes = [
     {
@@ -35,9 +36,14 @@ export const routes: Routes = [
         canActivate: [authorizationGuard]
     },
     {
-        path: 'author-articles/:id',
+        path: 'article/author/:id',
         title: 'Author Articles',
         component: UserArticleListComponent
+    },
+    {
+        path: 'article/tag/:tag',
+        title: 'Tag Articles',
+        component: TagListComponent
     },
     {
         path: 'register',

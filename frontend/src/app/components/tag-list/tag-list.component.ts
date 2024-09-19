@@ -1,32 +1,60 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Article } from '../../datamodels/Article';
+import { ArticleListComponent } from "../article-list/article-list.component";
+import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'app-tag-list',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, ArticleListComponent, MarkdownModule],
   templateUrl: './tag-list.component.html',
   styleUrl: './tag-list.component.scss'
 })
 export class TagListComponent implements OnInit{
+
+  articles: Article[] = [];
   private articleService = inject(ArticleService);
   private route = inject(ActivatedRoute);
-  articles: Article[] = [];
-  tag: string | null = null;
+
+  totalArticles: number = 0;
+  currentPage: number = 1;
+  tag: string | null = '';
 
   ngOnInit(){
-    this.tag = this.route.snapshot.paramMap.get("tag");
+    this.getLatestArticlesByTag(this.currentPage);
+  }
+
+  getLatestArticlesByTag(page: number){
+    this.tag = this.route.snapshot.paramMap.get('tag');
     if(this.tag){
-      this.articleService.getArticlesByTag(this.tag).subscribe(
-        data => {
-          this.articles = data;
-        },
-        error => {
-          console.error("Error on retrieve Articles", error)
+      this.articleService.getLatestArticlesByTag(this.tag, page).subscribe({
+        next: (articleRetrieved) => {
+          this.articles = articleRetrieved;
+        }, 
+        error: () => {
+          alert('Error on Get Article By Tag!')
         }
-      );
+      });
+    }
+  }
+
+  onPageForward(){
+    this.currentPage = this.currentPage + 1;
+    this.getLatestArticlesByTag(this.currentPage);
+  }
+
+  onPageBack(){
+    this.currentPage = this.currentPage - 1;
+    this.getLatestArticlesByTag(this.currentPage);
+  }
+
+  totalPages(): number{
+    if(this.totalArticles == 0){
+      return 1;
+    } else{
+      return Math.ceil(this.totalArticles / 10);
     }
   }
 

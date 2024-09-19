@@ -11,8 +11,10 @@
                     <p><em>Modified in: {{article.updatedAt}}</em></p>
                 }
                 <markdown>{{article.body}}</markdown>
-                <a [routerLink]="['/articles', 'article.articleId']"></a>
-                <a [routerLink]=""><h4>{{article.tags?.join(' - ')}}</h4></a>
+                <a [routerLink]="['/article', 'article.articleId']"></a>
+                @for (tag of article.tags; track tag) {
+                    <a [routerLink]="['/article/tag', tag]"><h4>{{ tag }}</h4></a>
+                }
                 <a [routerLink]="['/article', article.id]">Read More...</a>
             </div>
         }

@@ -1,4 +1,5 @@
 const { Article } = require('../config/dbconnection');
+const { Op } = require('sequelize');
 
 const createArticle = async(articleParams, userId) => {
     return await Article.create(articleParams, userId);
@@ -15,7 +16,9 @@ const getLatestArticlesWithLimit = async(limit, page) => {
 const getLatestArticlesByTag = async(limit, page, tag) => {
     return await Article.findAll({
         where: {
-            tags: tag 
+            tags: {
+                [Op.contains]: [tag]
+            } 
         },
         limit: limit,
         offset: (page - 1) * limit,

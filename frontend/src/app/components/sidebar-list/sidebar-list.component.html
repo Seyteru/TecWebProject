@@ -14,7 +14,7 @@
             <mat-icon matListItemIcon>create</mat-icon>
             <span matListItemTitle>Create Article</span>
         </a>
-        <a mat-list-item [routerLink]="'author-articles/:id'" routerLinkActive="selectedMenuItem" #rla="routerLinkActive" [activated]="rla.isActive">
+        <a mat-list-item [routerLink]="'article/author/:id'" routerLinkActive="selectedMenuItem" #rla="routerLinkActive" [activated]="rla.isActive">
             <mat-icon matListItemIcon>assignment</mat-icon>
             <span matListItemTitle>Your Article</span>
         </a>

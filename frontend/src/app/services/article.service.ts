@@ -22,19 +22,12 @@ export class ArticleService {
   }
 
   getLatestArticlesByTag(tag: string, page: number): Observable<Article[]>{
-    return this.http.get<any>(`${this.url}/latest/${tag}/${page}`);
+    return this.http.get<any>(`${this.url}/latest/tag/${tag}/${page}`);
   }
 
   getArticleById(articleId: number): Observable<Article>{
     const restUrl = `${this.url}/${articleId}`;
     return this.http.get<Article>(restUrl);
-  }
-
-  getArticlesByTag(tag: string): Observable<Article[]>{
-    const restUrl = `${this.url}?tag=${tag}`;
-    return this.http.get<Article[]>(restUrl).pipe(
-      catchError(this.handleError<Article[]>('getArticlesByTag', []))
-    );
   }
 
   getLatestAuthorArticles(id: number | null, page: number): Observable<Article[]>{

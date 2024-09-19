@@ -32,7 +32,7 @@ export class RegisterComponent {
     if(this.registerForm.valid){
       this.authService.register(this.registerForm.value).subscribe({
         next: () => {
-          alert(this.registerForm.get('role')?.value);
+          alert('Registration Success!');
           this.router.navigate(['/home']);
         },
         error: () => {

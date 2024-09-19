@@ -1,29 +1,33 @@
-<div class="tagListContainer">
-    <h1>Latest Articles with {{ tag }} Tag</h1>
-    @if(articles.length > 0){
-        <ul class="articlesList">
+<div class="user-article-list-container">
+    <h1 class="user-article-title">Articles with {{ tag }} Tag</h1>
+    @if(articles){
+        <div class="articlesList">
             @for (article of articles; track article) {
-                <li>
-                    <h3>
-                        <a [routerLink]="['/article', article.getArticleId()]">{{ article.getTitle() }}</a>
-                    </h3>
-                    <!--Author and creationDate-->
-                    @if(article.getLastModified()){
-                        <p>
-                            Last Modified: {{ article.getLastModified() }}
-                        </p>
+                <div>
+                    <h2>
+                        <a [routerLink]="['/article', article.id]">{{article.title}}</a>
+                    </h2>
+                    <h3>{{article.subtitle}}</h3>
+                    <p><em>Created in: {{article.createdAt}}</em></p>
+                    @if(article.updatedAt){
+                        <p><em>Modified in: {{article.updatedAt}}</em></p>
                     }
-                    <div class="tag">
-                        @for (tg of article?.getTag(); track tg) {
-                            <span>
-                                <a [routerLink]="['/tag', tg]">{{ tg }}</a>
-                            </span>
-                        }
-                    </div>
-                </li>
+                    <markdown>{{article.body}}</markdown>
+                    <a [routerLink]="['/article', 'article.articleId']"></a>
+                    @for (tag of article.tags; track tag) {
+                        <a [routerLink]="['/article/tag', tag]"><h4>{{ tag }}</h4></a>
+                    }
+                    <a [routerLink]="['/article', article.id]">Read More...</a>
+                </div>
             }
-        </ul>
-    } @else {
-        <p>No Articles found with this tag!</p>
+        </div>
+    } @else{
+        <p>There are no articles</p>
     }
+</div>
+
+<div class="pagination">
+    <button (click)="onPageBack()" [disabled]="currentPage == 1">Back</button>
+    <span>Page {{ currentPage }} of {{ totalPages() }}</span>
+    <button (click)="onPageForward()" [disabled]="currentPage == totalPages()">Forward</button>
 </div>

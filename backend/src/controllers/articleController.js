@@ -33,11 +33,11 @@ articleController.get('/latest/:page', async(req, res) => {
     }
 });
 
-articleController.get('/latest/:tag/:page', async(req, res) => {
+articleController.get('/latest/tag/:tag/:page', async(req, res) => {
     try {
         const limit = 10;
         const page = parseInt(req.params.page, 10) || 1;
-        const tag = req.params.tags;
+        const tag = req.params.tag;
         const articles = await articleCrud.getLatestArticlesByTag(limit, page, tag);
         res.status(200).json(articles);
     } catch (error) {

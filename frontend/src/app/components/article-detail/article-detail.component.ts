@@ -2,11 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Article } from '../../datamodels/Article';
 import { ArticleService } from '../../services/article.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'app-article-detail',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, MarkdownModule],
   templateUrl: './article-detail.component.html',
   styleUrl: './article-detail.component.scss'
 })

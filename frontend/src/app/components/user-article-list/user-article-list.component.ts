@@ -3,17 +3,19 @@ import { ArticleListComponent } from "../article-list/article-list.component";
 import { Article } from '../../datamodels/Article';
 import { ArticleService } from '../../services/article.service';
 import { UserService } from '../../services/user.service';
+import { MarkdownModule } from 'ngx-markdown';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-article-list',
   standalone: true,
-  imports: [ArticleListComponent],
+  imports: [ArticleListComponent, MarkdownModule, RouterLink],
   templateUrl: './user-article-list.component.html',
   styleUrl: './user-article-list.component.scss'
 })
 export class UserArticleListComponent {
 
-  @Input() articles: Article[] = [];
+  articles: Article[] = [];
   private articleService = inject(ArticleService);
   private userService = inject(UserService);
 

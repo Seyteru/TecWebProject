@@ -21,7 +21,7 @@
         </div>
         <div class="creation-body">
             <label for="body">Body</label>
-            <textarea id="body" formControlName="body" name="body" type="text" placeholder="Enter Body" rows="10"></textarea>
+            <md-editor id="body" formControlName="body" name="body" type="text" placeholder="Enter Body"></md-editor>
             @if(createArticleForm.get('body')?.invalid && createArticleForm.get('body')?.touched){
                 <div>
                     Body is Required
@@ -45,12 +45,5 @@
 </div>
 
 <div class="editor-container">
-    <h2>
-        Articolo in Markdown
-    </h2>
-    <md-editor [(ngModel)]="articleContent" (ngModelChange)="onContentChange($event)"></md-editor>
-    <h2>
-        Anteprima Articolo
-    </h2>
 
 </div>

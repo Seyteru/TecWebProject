@@ -10,7 +10,7 @@
                 @if(article.updatedAt){
                     <p><em>Modified in: {{article.updatedAt}}</em></p>
                 }
-                <p>{{article.body}}</p>
+                <markdown>{{article.body}}</markdown>
                 <a [routerLink]="['/articles', 'article.articleId']"></a>
                 <a [routerLink]=""><h4>{{article.tags?.join(' - ')}}</h4></a>
                 <a [routerLink]="['/article', article.id]">Read More...</a>

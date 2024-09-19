@@ -35,12 +35,13 @@ const getArticleById = async(id) => {
     return await Article.findByPk(id);
 };
 
-const getLatestAuthorArticles = async(userId) => {
+const getLatestAuthorArticles = async(limit, page, userId) => {
     return await Article.findAll({
         where: {
             userId: userId
         },
-        limit: 10,
+        limit: limit,
+        offset: (page - 1) * limit,
         order: [['createdAt', 'DESC']]
     });
 };

@@ -20,9 +20,3 @@
 } @else {
     <p>There are no Articles!</p>
 }
-
-<div class="pagination">
-    <button (click)="onPageBack()" [disabled]="currentPage == 1">Back</button>
-    <span>Page {{ currentPage }} of {{ totalPages() }}</span>
-    <button (click)="onPageForward()" [disabled]="currentPage == totalPages()">Forward</button>
-</div>

@@ -7,6 +7,7 @@ export class Article{
     createdAt: Date = new Date();
     updatedAt: Date = new Date();
     tags: string[] | null | undefined;
+    userId: number | null | undefined;
 
     constructor(){} 
     

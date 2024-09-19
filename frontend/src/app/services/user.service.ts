@@ -18,6 +18,24 @@ export class UserService {
     return null;
   }
 
+  getUserName(): string | null{
+    const token = this.tokenService.getToken();
+    if(token){
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.username;
+    }
+    return null;
+  }
+
+  getUserId(): number | null{
+    const token = this.tokenService.getToken();
+    if(token){
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.id;
+    }
+    return null;
+  }
+
   isAdmin(): boolean{
     const role = this.getUserRole();
     return role == 'admin';

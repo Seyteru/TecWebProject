@@ -54,10 +54,12 @@ articleController.get('/', async(req, res) => {
     }
 });
 
-articleController.get('/byUserId/:id', async(req, res) => {
+articleController.get('/author/:id/:page', async(req, res) => {
     try {
-        const userId = req.params.id;
-        const articles = await articleCrud.getLatestAuthorArticles(userId);
+        const id = req.params.id;
+        const limit = 10;
+        const page = parseInt(req.params.page)
+        const articles = await articleCrud.getLatestAuthorArticles(limit, page, id);
         res.status(200).json(articles);
     } catch (error) {
         res.status(500).json({ error: error.message });

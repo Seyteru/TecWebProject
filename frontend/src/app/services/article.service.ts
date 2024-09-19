@@ -37,6 +37,10 @@ export class ArticleService {
     );
   }
 
+  getLatestAuthorArticles(id: number | null, page: number): Observable<Article[]>{
+    return this.http.get<any>(`${this.url}/author/${id}/${page}`);
+  }
+
   createArticle(article: any): Observable<any>{
     return this.http.post<any>(this.url, article, {
       headers: { Authorization: `Bearer ${this.tokenService.getToken()}` }

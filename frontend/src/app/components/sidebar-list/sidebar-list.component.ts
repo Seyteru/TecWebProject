@@ -23,29 +23,6 @@ export class SidebarListComponent {
   private authService = inject(AuthenticationService);
   private userService = inject(UserService);
 
-  menuItems = signal<MenuItem[]>([
-    {
-      icon: 'home',
-      text: 'Home',
-      route: 'home'
-    },
-    {
-      icon: 'create',
-      text: 'Create Article',
-      route: 'article-creation'
-    },
-    {
-      icon: 'login',
-      text: 'Login',
-      route: 'login'
-    },
-    {
-      icon: 'logout',
-      text: 'Logout',
-      route: 'home'
-    }
-  ]);
-
   isAdmin(): boolean{
     return this.userService.isAdmin();
   }

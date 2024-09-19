@@ -46,3 +46,21 @@
       }
     }
   }
+
+  .editor-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+  }
+
+  markdown-editor {
+    height: 300px;
+    margin-bottom: 20px;
+  }
+  
+  markdown {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }

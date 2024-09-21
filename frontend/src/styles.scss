@@ -91,6 +91,16 @@ button {
   padding: 10px;
 }
 
+.page-title{
+  position: sticky;
+  top: 0;
+}
+
+.pagination{
+  position: sticky;
+  bottom: 0;
+}
+
 // Card Component
 .card {
   background: #f0f0f0;

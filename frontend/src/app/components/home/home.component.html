@@ -1,13 +1,9 @@
 <div class="articles-container-home">
-    <h1 class="home-title">Latest Articles</h1>
-    @if(articles){
-        <app-article-list [articles]="articles"></app-article-list>
-    } @else{
-        <p>There are no articles</p>
-    }
-</div>
-<div class="pagination">
-    <button (click)="onPageBack()" [disabled]="currentPage == 1">Back</button>
-    <span>Page {{ currentPage }} of {{ totalPages() }}</span>
-    <button (click)="onPageForward()" [disabled]="currentPage == totalPages()">Forward</button>
+    <h1 class="page-title">Latest Articles</h1>
+    <app-article-list [articles]="articles"></app-article-list>
+    <div class="pagination">
+        <button (click)="onPageBack()" [disabled]="currentPage == 1">Back</button>
+        <span>Page {{ currentPage }} of {{ totalPages() }}</span>
+        <button (click)="onPageForward()" [disabled]="currentPage == totalPages()">Forward</button>
+    </div>    
 </div>

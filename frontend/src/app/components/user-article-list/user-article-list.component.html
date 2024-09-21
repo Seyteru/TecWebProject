@@ -1,29 +1,6 @@
 <div class="user-article-list-container">
-    <h1 class="user-article-title">Articles by {{authorName}}</h1>
-    @if(articles){
-        <div class="articlesList">
-            @for (article of articles; track article) {
-                <div>
-                    <h2>
-                        <a [routerLink]="['/article', article.id]">{{article.title}}</a>
-                    </h2>
-                    <h3>{{article.subtitle}}</h3>
-                    <p><em>Created in: {{article.createdAt}}</em></p>
-                    @if(article.updatedAt){
-                        <p><em>Modified in: {{article.updatedAt}}</em></p>
-                    }
-                    <markdown>{{article.body}}</markdown>
-                    <a [routerLink]="['/article', 'article.articleId']"></a>
-                    @for (tag of article.tags; track tag) {
-                        <a [routerLink]="['/article/tag', tag]"><h4>{{ tag }}</h4></a>
-                    }
-                    <a [routerLink]="['/article', article.id]">Read More...</a>
-                </div>
-            }
-        </div>
-    } @else{
-        <p>There are no articles</p>
-    }
+    <h1 class="page-title">Articles by {{authorName}}</h1>
+    <app-article-list [articles]="articles"></app-article-list>
 </div>
 
 <div class="pagination">

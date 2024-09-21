@@ -2,7 +2,8 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
-import { TokenService } from '../../services/token.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginComponent {
   private router = inject(Router);
   private authService = inject(AuthenticationService);
   private formBuilder = inject(FormBuilder);
+  private dialog = inject(MatDialog);
 
   constructor(){
     this.loginForm = this.formBuilder.group({
@@ -31,7 +33,11 @@ export class LoginComponent {
     if(this.loginForm.valid){
       this.authService.login(this.loginForm.value).subscribe({
         next: () => {
-          alert('Login Success!');
+          this.dialog.open(AlertDialogComponent, {
+            width: '250px',
+            enterAnimationDuration: '500ms',
+            exitAnimationDuration: '500ms'
+          });
           this.router.navigate(['/home']);
         },
         error: () => {

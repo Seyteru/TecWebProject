@@ -4,6 +4,11 @@ const authenticateToken = require('../middleware/authMiddleware');
 
 const articleController = express.Router();
 
+const truncateText = (text, limit) => {
+    const words = text.split(' ');
+    return words.length > limit ? words.slice(0, limit).join(' ') + '...' : text;
+  };
+
 articleController.post('/', authenticateToken, async(req, res) => {
     try {
         const article = await articleCrud.createArticle(req.body, req.userId);
@@ -27,7 +32,18 @@ articleController.get('/latest/:page', async(req, res) => {
         const limit = 10;
         const page = parseInt(req.params.page) || 1;
         const articles = await articleCrud.getLatestArticlesWithLimit(limit, page);
-        res.status(200).json(articles);
+        const limitedArticles = articles.map((article, index) => {
+            if(index == 0){
+                return {
+                    ...article.get(),
+                    body: truncateText(article.body, 50)
+                };
+            } else{
+                const { body, ...restOfArticle } = article.get();
+                return restOfArticle;
+            }
+        });
+        res.status(200).json(limitedArticles);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -39,7 +55,18 @@ articleController.get('/latest/tag/:tag/:page', async(req, res) => {
         const page = parseInt(req.params.page, 10) || 1;
         const tag = req.params.tag;
         const articles = await articleCrud.getLatestArticlesByTag(limit, page, tag);
-        res.status(200).json(articles);
+        const limitedArticles = articles.map((article, index) => {
+            if(index == 0){
+                return {
+                    ...article.get(),
+                    body: truncateText(article.body, 50)
+                };
+            } else{
+                const { body, ...restOfArticle } = article.get();
+                return restOfArticle;
+            }
+        });
+        res.status(200).json(limitedArticles);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -60,7 +87,18 @@ articleController.get('/author/:id/:page', async(req, res) => {
         const limit = 10;
         const page = parseInt(req.params.page)
         const articles = await articleCrud.getLatestAuthorArticles(limit, page, id);
-        res.status(200).json(articles);
+        const limitedArticles = articles.map((article, index) => {
+            if(index == 0){
+                return {
+                    ...article.get(),
+                    body: truncateText(article.body, 50)
+                };
+            } else{
+                const { body, ...restOfArticle } = article.get();
+                return restOfArticle;
+            }
+        });
+        res.status(200).json(limitedArticles);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

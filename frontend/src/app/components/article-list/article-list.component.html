@@ -10,9 +10,11 @@
                         <mat-card-subtitle>Updated in: {{ article.updatedAt }}</mat-card-subtitle>
                     }
                 </mat-card-header>
-                <mat-card-content>
-                    <p><markdown>{{ article.body }}   <a [routerLink]="['/article', article.id]">Read More...</a></markdown></p>
-                </mat-card-content>
+                @if(article.body){
+                    <mat-card-content>
+                        <p><markdown>{{ article.body }}   <a [routerLink]="['/article', article.id]">Read More!</a></markdown></p>
+                    </mat-card-content>
+                }
                 <mat-card-actions align="start">
                     @for (tag of article.tags; track tag) {
                         <a button mat-button [routerLink]="['/article/tag', tag]">{{tag}}</a>

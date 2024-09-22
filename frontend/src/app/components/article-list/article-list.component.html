@@ -6,7 +6,7 @@
                     <a mat-card-title [routerLink]="['/article', article.id]">{{ article.title }}</a>
                     <mat-card-subtitle>{{ article.subtitle }}</mat-card-subtitle>
                     <mat-card-subtitle>Created in: {{ formatDate(article.createdAt) }}</mat-card-subtitle>
-                    @if(article.updatedAt){
+                    @if(article.updatedAt != article.createdAt){
                         <mat-card-subtitle>Updated in: {{ formatDate(article.updatedAt)}}</mat-card-subtitle>
                     }
                 </mat-card-header>

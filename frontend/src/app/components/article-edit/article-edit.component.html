@@ -1,1 +1,45 @@
-<p>article-edit works!</p>
+<div class="article-edit-container">
+    <h2>Edit Article</h2>
+    <form [formGroup]="createArticleForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+        <div class="edit-title">
+            <label for="title">Title</label>
+            <input id="title" formControlName="title" name="title" type="text" placeholder="Enter Title" />
+            @if(createArticleForm.get('title')?.invalid && createArticleForm.get('title')?.touched){
+                <div>
+                    Title is Required
+                </div>
+            }
+        </div>
+        <div class="edit-subtitle">
+            <label for="subtitle">Subtitle</label>
+            <input id="subtitle" formControlName="subtitle" name="subtitle" type="text" placeholder="Enter Subtitle" />
+            @if(createArticleForm.get('subtitle')?.invalid && createArticleForm.get('subtitle')?.touched){
+                <div>
+                    Subtitle is Required
+                </div>
+            }
+        </div>
+        <div class="edit-body">
+            <label for="body">Body</label>
+            <md-editor id="body" formControlName="body" name="body" type="text" placeholder="Enter Body"></md-editor>
+            @if(createArticleForm.get('body')?.invalid && createArticleForm.get('body')?.touched){
+                <div>
+                    Body is Required
+                </div>
+            }
+        </div>
+        <div class="edit-tagList" formArrayName="tags">
+        @for (tag of tags.controls; track tag; let idx = $index) {
+            <button type="button" (click)="removeTag(idx)">{{tag.value}}</button>
+        }
+        </div>
+        <div class="edit-tags">
+            <label>Tag</label>
+            <input #newTag (keyup.enter)="addTag(newTag.value); newTag.value = ''"/>
+        </div>
+        @if(errorMsg){
+            <div class="errorMsg">{{ errorMsg }}</div>
+        }
+        <button type="submit" [disabled]="createArticleForm.invalid">Edit Article</button>
+    </form>
+</div>

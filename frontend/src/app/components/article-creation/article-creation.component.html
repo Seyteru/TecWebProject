@@ -1,6 +1,6 @@
 <div class="article-creation-container">
     <h2>Create a new Article</h2>
-    <form [formGroup]="createArticleForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="createArticleForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
         <div class="creation-title">
             <label for="title">Title</label>
             <input id="title" formControlName="title" name="title" type="text" placeholder="Enter Title" />
@@ -42,8 +42,4 @@
         }
         <button type="submit" [disabled]="createArticleForm.invalid">Create Article</button>
     </form>
-</div>
-
-<div class="editor-container">
-
 </div>

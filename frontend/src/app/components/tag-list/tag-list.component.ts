@@ -20,16 +20,18 @@ export class TagListComponent implements OnInit{
 
   totalArticles: number = 0;
   currentPage: number = 1;
-  tag: string | null = '';
+  currentTag: string | null = '';
 
   ngOnInit(){
-    this.getLatestArticlesByTag(this.currentPage);
+    this.route.paramMap.subscribe(paramMap => {
+      this.currentTag = paramMap.get('tag');
+      this.getLatestArticlesByTag(this.currentPage, this.currentTag);
+    });
   }
 
-  getLatestArticlesByTag(page: number){
-    this.tag = this.route.snapshot.paramMap.get('tag');
-    if(this.tag){
-      this.articleService.getLatestArticlesByTag(this.tag, page).subscribe({
+  getLatestArticlesByTag(page: number, tag: string | null){
+    if(tag){
+      this.articleService.getLatestArticlesByTag(tag, page).subscribe({
         next: (articleRetrieved) => {
           this.articles = articleRetrieved;
         }, 
@@ -42,12 +44,12 @@ export class TagListComponent implements OnInit{
 
   onPageForward(){
     this.currentPage = this.currentPage + 1;
-    this.getLatestArticlesByTag(this.currentPage);
+    this.getLatestArticlesByTag(this.currentPage, this.currentTag);
   }
 
   onPageBack(){
     this.currentPage = this.currentPage - 1;
-    this.getLatestArticlesByTag(this.currentPage);
+    this.getLatestArticlesByTag(this.currentPage, this.currentTag);
   }
 
   totalPages(): number{

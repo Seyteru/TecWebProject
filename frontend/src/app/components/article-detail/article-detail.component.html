@@ -1,14 +1,26 @@
 @if(article){
-    <div>
-        <h2>{{article.title}}</h2>
-        <h3>{{article.subtitle}}</h3>
-        <p><em>Created in: {{article.createdAt}}</em></p>
-        @if(article.updatedAt){
-            <p><em>Modified in: {{article.updatedAt}}</em></p>
-        }
-        <markdown>{{article.body}}</markdown>
-        <div>
-            <h4>{{article.tags?.join(' - ')}}</h4>
-        </div>
+    <div class="card-article-detail">
+        <mat-card appearance="outlined">
+            <mat-card-header>
+                <mat-card-title>{{ article.title }}</mat-card-title>
+                <mat-card-subtitle>{{ article.subtitle }}</mat-card-subtitle>
+                <mat-card-subtitle>Created in: {{ article.createdAt }}</mat-card-subtitle>
+                @if(article.updatedAt){
+                    <mat-card-subtitle>Updated in: {{ article.updatedAt }}</mat-card-subtitle>
+                }
+            </mat-card-header>
+            <mat-card-content>
+                <p><markdown>{{ article.body }}</markdown></p>
+            </mat-card-content>
+            <mat-card-actions align="start">
+                @for (tag of article.tags; track tag) {
+                    <a button mat-button [routerLink]="['/article/tag', tag]">{{tag}}</a>
+                }
+              </mat-card-actions>
+        </mat-card>
     </div>
+} @else {
+    <h1>There is an Error with this Article!</h1>
 }
+
+

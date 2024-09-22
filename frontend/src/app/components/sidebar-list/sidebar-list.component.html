@@ -1,29 +1,29 @@
-<mat-nav-list>
-    <a mat-list-item [routerLink]="'home'" routerLinkActive="selectedMenuItem" #rla1="routerLinkActive" [activated]="rla1.isActive">
+<mat-nav-list class="nav-list-container">
+    <a mat-list-item [routerLink]="'home'" routerLinkActive="selectedMenuItem">
         <mat-icon matListItemIcon>home</mat-icon>
         <span matListItemTitle>Home</span>
     </a>
     @if(isAdmin()){
-        <a mat-list-item [routerLink]="'register'" routerLinkActive="selectedMenuItem" #rla2="routerLinkActive" [activated]="rla2.isActive">
+        <a mat-list-item [routerLink]="'register'" routerLinkActive="selectedMenuItem">
             <mat-icon matListItemIcon>face</mat-icon>
             <span matListItemTitle>Create User</span>
         </a>
     }
     @if(isLoggedIn()){
-        <a mat-list-item [routerLink]="'article-creation'" routerLinkActive="selectedMenuItem" #rla3="routerLinkActive" [activated]="rla3.isActive">
+        <a mat-list-item [routerLink]="'article-creation'" routerLinkActive="selectedMenuItem">
             <mat-icon matListItemIcon>create</mat-icon>
             <span matListItemTitle>Create Article</span>
         </a>
-        <a mat-list-item [routerLink]="'article/author/:id'" routerLinkActive="selectedMenuItem" #rla4="routerLinkActive" [activated]="rla4.isActive">
+        <a mat-list-item [routerLink]="'article/author/:id'" routerLinkActive="selectedMenuItem">
             <mat-icon matListItemIcon>assignment</mat-icon>
             <span matListItemTitle>Your Article</span>
         </a>
-        <mat-list-item  (click)="openDialog()" routerLinkActive="selectedMenuItem" #rla5="routerLinkActive" [activated]="rla5.isActive">
+        <mat-list-item  (click)="openDialog()" routerLinkActive="selectedMenuItem">
             <mat-icon matListItemIcon>logout</mat-icon>
             <span matListItemTitle>Logout</span>
         </mat-list-item>
     } @else {
-        <a mat-list-item [routerLink]="'login'" routerLinkActive="selectedMenuItem" #rla6="routerLinkActive" [activated]="rla6.isActive">
+        <a mat-list-item [routerLink]="'login'" routerLinkActive="selectedMenuItem">
             <mat-icon matListItemIcon>login</mat-icon>
             <span matListItemTitle>Login</span>
         </a>

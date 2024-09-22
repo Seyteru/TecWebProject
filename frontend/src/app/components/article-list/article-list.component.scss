@@ -1,6 +1,14 @@
-div.articlesList {
-    margin: 0 auto;
-    display: inline;
-    padding: 0;
+.article-list{
+    justify-content: center;
+    align-items: center;
+}
+
+.card-article-list{
+    margin-bottom: 3%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    max-width: 100%;
 }

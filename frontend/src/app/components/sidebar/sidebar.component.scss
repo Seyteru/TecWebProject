@@ -4,13 +4,17 @@ mat-toolbar{
 }
 
 .sidenav-content{
-  padding: 24px;
+  padding: 2%;
 }
 
-mat-sidenav-container{
-  height: calc(100vh - 104px);
+.sidenav-container{
+  height: 93%;
 }
 
 mat-sidenav, mat-sidenav-content{
   transition: all 0.5s ease-in-out;
+}
+
+.sidenav{
+  border-radius: 0;                         
 }

@@ -1,47 +1,66 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Article } from '../../datamodels/Article';
+import { Component, inject } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { MatIcon } from '@angular/material/icon';
+import { LMarkdownEditorModule } from 'ngx-markdown-editor';
+import { MarkdownModule } from 'ngx-markdown';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-article-edit',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, FormsModule, MatIcon, LMarkdownEditorModule, MarkdownModule],
   templateUrl: './article-edit.component.html',
   styleUrl: './article-edit.component.scss'
 })
-export class ArticleEditComponent implements OnInit{
+export class ArticleEditComponent{
 
   private articleService = inject(ArticleService);
+  private formBuilder = inject(FormBuilder);
   private router = inject(Router);
-  private route = inject(ActivatedRoute);
-  private article: Article | undefined;
+  createArticleForm: FormGroup;
+  errorMsg: string = '';
+  articleContent: string = '';
 
-  ngOnInit(){
-    const id = Number(this.route.snapshot.paramMap.get('articleId'));
-    if(id){
-      this.articleService.getArticleById(id).subscribe(
-        data => {
-          this.article = data;
-        },
-        error => {
-          console.error("Error on retrive Article", error);
-        }
-      );
-    }
+  onContentChange(content: string){
+    this.articleContent = content;
+  }
+
+  constructor(){
+    this.createArticleForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      subtitle: ['', Validators.required],
+      body: ['', Validators.required],
+      tags: this.formBuilder.array([])
+    });
+  }
+
+  get tags(): FormArray{
+    return this.createArticleForm.get('tags') as FormArray;
+  }
+
+  addTag(tag: string){
+    this.tags.push(this.formBuilder.control(tag));
+  }
+
+  removeTag(index: number){
+    this.tags.removeAt(index);
   }
 
   onSubmit(){
-    if(this.article){
-      this.articleService.updateArticleById(this.article).subscribe(
-        success => {
-          this.router.navigate(['/article', this.article?.getArticleId]);
+    if(this.createArticleForm.valid){
+      this.articleService.createArticle(this.createArticleForm.value).subscribe({
+        next: () => {
+          alert('Article Creation Success!');
+          this.router.navigate(['/home']);
         },
-        error => {
-          console.error("Error on update Article", error);
-          alert("Error on update Article");
+        error: (error) => {
+          this.errorMsg = 'Error on Create Article!'
+          alert( `Article: ${this.createArticleForm.value} ${error.message}` );
+          console.error(error);
         }
-      );
+      });
     }
   }
 

@@ -7,6 +7,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { authorizationGuard } from './authorization.guard';
 import { UserArticleListComponent } from './components/user-article-list/user-article-list.component';
 import { TagListComponent } from './components/tag-list/tag-list.component';
+import { ArticleEditComponent } from './components/article-edit/article-edit.component';
 
 export const routes: Routes = [
     {
@@ -28,6 +29,11 @@ export const routes: Routes = [
         path: 'article/:id',
         title: 'Article Detail',
         component: ArticleDetailComponent
+    },
+    {
+        path: 'article/edit/:id',
+        title: 'Article Edit',
+        component: ArticleEditComponent
     },
     {
         path: 'article-creation',

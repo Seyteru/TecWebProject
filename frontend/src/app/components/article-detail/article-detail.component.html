@@ -3,6 +3,9 @@
         <mat-card appearance="outlined">
             <mat-card-header>
                 <mat-card-title>{{ article.title }}</mat-card-title>
+                <a button mat-icon-button class="edit-button" [routerLink]="'/article/edit/:id'">
+                    <mat-icon>edit</mat-icon>
+                </a>
                 <mat-card-subtitle>{{ article.subtitle }}</mat-card-subtitle>
                 <mat-card-subtitle>Created in: {{ article.createdAt }}</mat-card-subtitle>
                 @if(article.updatedAt){

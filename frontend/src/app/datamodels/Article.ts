@@ -4,8 +4,8 @@ export class Article{
     title: string | null | undefined;
     subtitle: string | null | undefined;
     body: string | null | undefined;
-    createdAt: Date = new Date();
-    updatedAt: Date = new Date();
+    createdAt: string = '';
+    updatedAt: string = '';
     tags: string[] | null | undefined;
     userId: number | null | undefined;
 

@@ -49,10 +49,10 @@ const getLatestAuthorArticles = async(limit, page, userId) => {
     });
 };
 
-const updateArticleById = async(id, updatedParams) => {
+const updateArticleById = async(id, articleParams) => {
     const article = await Article.findByPk(id);
     if(article){
-        return await article.update(updatedParams);
+        return await article.update(articleParams);
     } else{
         return null;
     }

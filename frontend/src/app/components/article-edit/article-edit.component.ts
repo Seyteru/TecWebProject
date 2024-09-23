@@ -44,7 +44,7 @@ export class ArticleEditComponent implements OnInit{
         next: (articleRetrieved) => {
           this.article = articleRetrieved;
           this.editArticleForm.patchValue({
-            articleId: articleRetrieved.id,
+            id: articleId,
             title: articleRetrieved.title,
             subtitle: articleRetrieved.subtitle,
             body: articleRetrieved.body,
@@ -78,7 +78,7 @@ export class ArticleEditComponent implements OnInit{
 
   onSubmit(){
     if(this.editArticleForm.valid){
-      this.articleService.updateArticleById(this.editArticleForm.value).subscribe({
+      this.articleService.updateArticleById(this.article.id ,this.editArticleForm.value).subscribe({
         next: () => {
           alert('Article Creation Success!');
           this.router.navigate(['/article', this.article.id]);

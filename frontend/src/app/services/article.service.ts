@@ -25,8 +25,8 @@ export class ArticleService {
     return this.http.get<any>(`${this.url}/latest/tag/${tag}/${page}`);
   }
 
-  getArticleById(articleId: number): Observable<Article>{
-    const restUrl = `${this.url}/${articleId}`;
+  getArticleById(id: number): Observable<Article>{
+    const restUrl = `${this.url}/${id}`;
     return this.http.get<Article>(restUrl);
   }
 
@@ -40,8 +40,8 @@ export class ArticleService {
     });
   }
 
-  updateArticleById(article: Article): Observable<Article>{
-    const restUrl = `${this.url}/${article.id}`;
+  updateArticleById(id: number | null | undefined, article: any): Observable<any>{
+    const restUrl = `${this.url}/${id}`;
     return this.http.put<any>(restUrl, article)
   }
 

@@ -6,7 +6,7 @@ export class Article{
     body: string | null | undefined;
     createdAt: string = '';
     updatedAt: string = '';
-    tags: string[] | null | undefined;
+    tags: string[] = [];
     userId: number | null | undefined;
 
     constructor(){} 

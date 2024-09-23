@@ -1,43 +1,71 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { LMarkdownEditorModule } from 'ngx-markdown-editor';
 import { MarkdownModule } from 'ngx-markdown';
-import { MatButtonModule } from '@angular/material/button';
+import { Article } from '../../datamodels/Article';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-article-edit',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, MatIcon, LMarkdownEditorModule, MarkdownModule],
+  imports: [ReactiveFormsModule, FormsModule, MatIcon, LMarkdownEditorModule, MarkdownModule, MatFormFieldModule,MatInputModule],
   templateUrl: './article-edit.component.html',
   styleUrl: './article-edit.component.scss'
 })
-export class ArticleEditComponent{
+export class ArticleEditComponent implements OnInit{
 
   private articleService = inject(ArticleService);
   private formBuilder = inject(FormBuilder);
   private router = inject(Router);
-  createArticleForm: FormGroup;
+  private route = inject(ActivatedRoute);
+  editArticleForm!: FormGroup;
   errorMsg: string = '';
   articleContent: string = '';
+  article: Article = new Article();
+
+  ngOnInit(): void {
+    this.editArticleForm = this.formBuilder.group({
+      title: [''],
+      subtitle: [''],
+      body: [''],
+      tags: this.formBuilder.array([])
+    });
+    this.getArticleDetails();
+  }
+
+  getArticleDetails(){
+    const articleId = Number(this.route.snapshot.paramMap.get('id'));
+    if(articleId){
+      this.articleService.getArticleById(articleId).subscribe({
+        next: (articleRetrieved) => {
+          this.article = articleRetrieved;
+          this.editArticleForm.patchValue({
+            articleId: articleRetrieved.id,
+            title: articleRetrieved.title,
+            subtitle: articleRetrieved.subtitle,
+            body: articleRetrieved.body,
+            tags: articleRetrieved.tags,
+          })
+        }, 
+        error: () => {
+          alert('Error on Get Article!')
+          this.router.navigate(['/home']);
+        }
+      });
+    }
+  }
+
 
   onContentChange(content: string){
     this.articleContent = content;
   }
 
-  constructor(){
-    this.createArticleForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      subtitle: ['', Validators.required],
-      body: ['', Validators.required],
-      tags: this.formBuilder.array([])
-    });
-  }
-
   get tags(): FormArray{
-    return this.createArticleForm.get('tags') as FormArray;
+    return this.editArticleForm.get('tags') as FormArray;
   }
 
   addTag(tag: string){
@@ -49,15 +77,15 @@ export class ArticleEditComponent{
   }
 
   onSubmit(){
-    if(this.createArticleForm.valid){
-      this.articleService.createArticle(this.createArticleForm.value).subscribe({
+    if(this.editArticleForm.valid){
+      this.articleService.updateArticleById(this.editArticleForm.value).subscribe({
         next: () => {
           alert('Article Creation Success!');
-          this.router.navigate(['/home']);
+          this.router.navigate(['/article', this.article.id]);
         },
         error: (error) => {
           this.errorMsg = 'Error on Create Article!'
-          alert( `Article: ${this.createArticleForm.value} ${error.message}` );
+          alert( `Article: ${this.editArticleForm.value} ${error.message}` );
           console.error(error);
         }
       });

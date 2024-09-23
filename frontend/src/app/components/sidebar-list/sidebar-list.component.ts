@@ -28,6 +28,7 @@ export class SidebarListComponent {
   private authService = inject(AuthenticationService);
   private userService = inject(UserService);
   private dialog = inject(MatDialog);
+  authorId: number | null = this.userService.getUserId();
 
 
   openDialog(){

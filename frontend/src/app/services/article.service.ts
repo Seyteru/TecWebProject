@@ -42,9 +42,7 @@ export class ArticleService {
 
   updateArticleById(article: Article): Observable<Article>{
     const restUrl = `${this.url}/${article.id}`;
-    return this.http.put<Article>(restUrl, article).pipe(
-      catchError(this.handleError<Article>('updateArticle'))
-    );
+    return this.http.put<any>(restUrl, article)
   }
 
   deleteArticleById(articleId: number): Observable<unknown>{

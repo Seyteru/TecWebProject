@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MarkdownModule } from 'ngx-markdown';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class ArticleDetailComponent implements OnInit{
 
   private articleService = inject(ArticleService);
+  private userService = inject(UserService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
@@ -52,6 +54,19 @@ export class ArticleDetailComponent implements OnInit{
     const minutes = String(date.getMinutes()).padStart(2, '0');
 
     return `${year}/${month}/${day} ${hours}:${minutes}`;
+  }
+
+  isOwner(): boolean{
+    const userId = this.userService.getUserId();
+    if(userId == this.article?.userId){
+      return true;
+    } else{
+      return false;
+    }
+  }
+
+  isAdmin(): boolean{
+    return this.userService.isAdmin();
   }
 
 }

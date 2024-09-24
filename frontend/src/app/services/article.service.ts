@@ -31,7 +31,9 @@ export class ArticleService {
   }
 
   getLatestAuthorArticles(id: number | null, page: number): Observable<Article[]>{
-    return this.http.get<any>(`${this.url}/author/${id}/${page}`);
+    return this.http.get<any>(`${this.url}/author/${id}/${page}`, {
+      headers: { Authorization: `Bearer ${this.tokenService.getToken()}` }
+    });
   }
 
   createArticle(article: any): Observable<any>{
@@ -44,7 +46,7 @@ export class ArticleService {
     const restUrl = `${this.url}/${id}`;
     return this.http.put<any>(restUrl, article, {
       headers: { Authorization: `Bearer ${this.tokenService.getToken()}` }
-    })
+    });
   }
 
   deleteArticleById(articleId: number): Observable<unknown>{

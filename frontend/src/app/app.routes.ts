@@ -4,7 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ArticleDetailComponent } from './components/article-detail/article-detail.component';
 import { ArticleCreationComponent } from './components/article-creation/article-creation.component';
 import { RegisterComponent } from './components/register/register.component';
-import { authorizationGuard } from './authorization.guard';
+import { authorizationAdmin, authorizationAdminOrOwner, authorizationGuard } from './authorization.guard';
 import { UserArticleListComponent } from './components/user-article-list/user-article-list.component';
 import { TagListComponent } from './components/tag-list/tag-list.component';
 import { ArticleEditComponent } from './components/article-edit/article-edit.component';
@@ -33,7 +33,8 @@ export const routes: Routes = [
     {
         path: 'article/edit/:id',
         title: 'Article Edit',
-        component: ArticleEditComponent
+        component: ArticleEditComponent,
+        canActivate: [authorizationAdminOrOwner]
     },
     {
         path: 'article-creation',
@@ -55,7 +56,7 @@ export const routes: Routes = [
         path: 'register',
         title: 'Register',
         component: RegisterComponent,
-        canActivate: [authorizationGuard]
+        canActivate: [authorizationAdmin]
     },
     {
         path: '**',

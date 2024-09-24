@@ -1,6 +1,6 @@
 const express = require('express');
 const articleCrud = require('../crud/articleCrud');
-const authenticateToken = require('../middleware/authMiddleware');
+const {authenticateToken, authenticateTokenForAdminOrOwner} = require('../middleware/authMiddleware');
 
 const articleController = express.Router();
 
@@ -81,7 +81,7 @@ articleController.get('/', async(req, res) => {
     }
 });
 
-articleController.get('/author/:id/:page', async(req, res) => {
+articleController.get('/author/:id/:page', authenticateToken, async(req, res) => {
     try {
         const id = req.params.id;
         const limit = 10;
@@ -117,7 +117,7 @@ articleController.get('/:id', async(req, res) => {
     }
 });
 
-articleController.put('/:id', async(req, res) => {
+articleController.put('/:id', authenticateToken, authenticateTokenForAdminOrOwner, async(req, res) => {
     try {
         const article = await articleCrud.updateArticleById(req.params.id, req.body);
         if(article){

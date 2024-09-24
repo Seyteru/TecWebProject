@@ -80,11 +80,11 @@ export class ArticleEditComponent implements OnInit{
     if(this.editArticleForm.valid){
       this.articleService.updateArticleById(this.article.id ,this.editArticleForm.value).subscribe({
         next: () => {
-          alert('Article Creation Success!');
+          alert('Article Update Success!');
           this.router.navigate(['/article', this.article.id]);
         },
         error: (error) => {
-          this.errorMsg = 'Error on Create Article!'
+          this.errorMsg = 'Error on Update Article!'
           alert( `Article: ${this.editArticleForm.value} ${error.message}` );
           console.error(error);
         }

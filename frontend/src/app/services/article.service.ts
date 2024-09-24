@@ -42,7 +42,9 @@ export class ArticleService {
 
   updateArticleById(id: number | null | undefined, article: any): Observable<any>{
     const restUrl = `${this.url}/${id}`;
-    return this.http.put<any>(restUrl, article)
+    return this.http.put<any>(restUrl, article, {
+      headers: { Authorization: `Bearer ${this.tokenService.getToken()}` }
+    })
   }
 
   deleteArticleById(articleId: number): Observable<unknown>{

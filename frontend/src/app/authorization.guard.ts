@@ -4,6 +4,7 @@ import { TokenService } from './services/token.service';
 import { ArticleService } from './services/article.service';
 import { catchError, of, switchMap } from 'rxjs';
 import { UserService } from './services/user.service';
+import { AuthenticationService } from './services/authentication.service';
 
 export const authorizationGuard: CanActivateFn = (route, state) => {
 
@@ -19,6 +20,17 @@ export const authorizationGuard: CanActivateFn = (route, state) => {
   }
 
 };
+
+export const authorizationNotLogged: CanActivateFn = (route, state) => {
+  const authService = inject(AuthenticationService);
+  const router = inject(Router);
+  if(!authService.isLoggedIn()){
+    return true;
+  } else{
+    router.navigate(['/home']);
+    return false;
+  }
+}
 
 export const authorizationAdminOrOwner: CanActivateFn = (route, state) => {
 

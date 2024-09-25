@@ -19,7 +19,6 @@ export class UserArticleListComponent {
   private articleService = inject(ArticleService);
   private userService = inject(UserService);
 
-  authorName: string | null = this.userService.getUserName();
   totalArticles: number = 0;
   currentPage: number = 1;
 

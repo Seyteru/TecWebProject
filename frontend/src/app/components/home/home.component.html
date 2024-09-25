@@ -1,5 +1,4 @@
 <div class="articles-container-home">
-    <h1 class="page-title">Latest Articles</h1>
     <app-article-list [articles]="articles"></app-article-list>
     <div class="pagination">
         <button (click)="onPageBack()" [disabled]="currentPage == 1">Back</button>

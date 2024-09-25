@@ -27,6 +27,6 @@ export class SidebarComponent {
 
   collapsed = signal(true);
   sidenavWidth = computed( () => this.collapsed() ? '3.6%' : '15%' );
-
+  sidenavContent = computed( () => this.collapsed() ? '96.4%' : '85%' );
 
 }

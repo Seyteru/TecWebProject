@@ -11,7 +11,7 @@
     <mat-sidenav class="sidenav" opened mode="side" [style.width]="sidenavWidth()">
         <app-sidebar-list />
     </mat-sidenav>
-    <mat-sidenav-content class="sidenav-content" [style.margin-left]="sidenavWidth()">
+    <mat-sidenav-content class="sidenav-content" [style.width]="sidenavContent()" [style.margin-left]="sidenavWidth()">
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>

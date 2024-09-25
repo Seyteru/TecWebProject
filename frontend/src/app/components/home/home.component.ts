@@ -1,14 +1,16 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { ArticleListComponent } from "../article-list/article-list.component";
 import { Article } from '../../datamodels/Article';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, AsyncPipe, ArticleListComponent],
+  imports: [RouterLink, AsyncPipe, ArticleListComponent, MatIconModule, MatButtonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

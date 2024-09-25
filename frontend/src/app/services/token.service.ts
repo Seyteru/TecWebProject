@@ -10,25 +10,20 @@ export class TokenService {
   private userKey = 'authUser';
 
   signOut(){
-    window.sessionStorage.clear();
+    localStorage.removeItem(this.tokenKey);
   }
 
   saveToken(token: string){
-    window.sessionStorage.removeItem(this.tokenKey);
-    window.sessionStorage.setItem(this.tokenKey, token);
+    localStorage.removeItem(this.tokenKey);
+    localStorage.setItem(this.tokenKey, token);
   }
 
   getToken(): string | null{
-    return window.sessionStorage.getItem(this.tokenKey);
-  }
-
-  saveUser(user: any){
-    window.sessionStorage.removeItem(this.userKey);
-    window.sessionStorage.setItem(this.userKey, JSON.stringify(user));
+    return localStorage.getItem(this.tokenKey);
   }
 
   getUser(): any{
-    const user = window.sessionStorage.getItem(this.userKey);
+    const user = localStorage.getItem(this.userKey);
     if(user){
       return JSON.parse(user);
     } else{

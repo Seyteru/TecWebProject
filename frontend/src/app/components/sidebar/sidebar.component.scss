@@ -1,6 +1,7 @@
 mat-toolbar{
   position: relative;
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
   z-index: 5;
@@ -8,8 +9,7 @@ mat-toolbar{
 
 .sidenav-content{
   padding: 2%;
-  width: 100%;
-  max-width: 100%;
+  width: 96.4%;
 }
 
 .sidenav-container{
@@ -21,7 +21,10 @@ mat-sidenav, mat-sidenav-content{
 }
 
 .sidenav{
-  border-radius: 0;               
+  border-radius: 0;  
+  z-index: 2;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+  border-right: 1px solid #ccc 
 }
 
 .toolbar-title{

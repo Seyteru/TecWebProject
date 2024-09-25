@@ -18,45 +18,69 @@ export const routes: Routes = [
     {
         path: 'home',
         title: 'Home',
-        component: HomeComponent
+        component: HomeComponent,
+        data: {
+            title: 'Latest Articles'
+        }
     },
     {
         path: 'login',
         title: 'Login',
-        component: LoginComponent
+        component: LoginComponent,
+        data: {
+            title: 'Login'
+        }
     },
     {
         path: 'article/:id',
         title: 'Article Detail',
-        component: ArticleDetailComponent
+        component: ArticleDetailComponent,
+        data: {
+            title: 'Article Detail'
+        }
     },
     {
         path: 'article/edit/:id',
         title: 'Article Edit',
         component: ArticleEditComponent,
-        canActivate: [authorizationAdminOrOwner]
+        canActivate: [authorizationAdminOrOwner],
+        data: {
+            title: 'Article Edit'
+        }
     },
     {
         path: 'article-creation',
         title: 'Article Creation',
         component: ArticleCreationComponent,
-        canActivate: [authorizationGuard]
+        canActivate: [authorizationGuard],
+        data: {
+            title: 'Article Creation'
+        }
     },
     {
         path: 'article/author/:id',
         title: 'Author Articles',
-        component: UserArticleListComponent
+        component: UserArticleListComponent,
+        data: {
+            title: 'My Articles'
+        }
     },
     {
         path: 'article/tag/:tag',
         title: 'Tag Articles',
-        component: TagListComponent
+        component: TagListComponent,
+        data: {
+            title: 'Latest Articles by Tag'
+        }
     },
     {
         path: 'register',
         title: 'Register',
         component: RegisterComponent,
-        canActivate: [authorizationAdmin]
+        canActivate: [authorizationAdmin],
+        data: {
+            title: 'Register'
+        }
     },
     {
         path: '**',

@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, Input, signal } from '@angular/core';
 import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
@@ -22,6 +22,8 @@ export type MenuItem = {
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
+
+  @Input() title: string = 'Titolo';
 
   collapsed = signal(true);
   sidenavWidth = computed( () => this.collapsed() ? '58px' : '250px' );

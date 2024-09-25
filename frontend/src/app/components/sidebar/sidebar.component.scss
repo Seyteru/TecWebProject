@@ -1,5 +1,8 @@
 mat-toolbar{
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   z-index: 5;
 }
 
@@ -17,4 +20,17 @@ mat-sidenav, mat-sidenav-content{
 
 .sidenav{
   border-radius: 0;                         
+}
+
+.toolbar-title{
+  text-align: left;
+}
+
+.toolbar-title-screen{
+  text-align: center;
+  font-size:xx-large;
+}
+
+.spacer{
+  flex: 1;
 }

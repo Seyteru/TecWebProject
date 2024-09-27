@@ -1,22 +1,18 @@
-.nav-list-container{
-    width: 95%;
+nav-list-container{
+    margin: 0;
 }
 
 a, mat-list-item{
+    align-items: center;
     border-radius: 0 !important;
     padding: 15%;
-    border-bottom: 4px solid #ccc;
 }
 
 a:hover, mat-list-item:hover{
-    transform: scale(1.10);
-    z-index: 4;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 0;
+    background-color: #dad7d7;
 }
 
 .selectedMenuItem{
-    transform: scale(1.10);
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 0 !important; 
+    background-color: #dad7d7;
+    border-radius: 0; 
 }

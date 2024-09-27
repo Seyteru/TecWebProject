@@ -26,7 +26,7 @@ export class SidebarComponent {
   @Input() title: string = 'Titolo';
 
   collapsed = signal(true);
-  sidenavWidth = computed( () => this.collapsed() ? '3.6%' : '15%' );
-  sidenavContent = computed( () => this.collapsed() ? '96.4%' : '85%' );
+  sidenavWidth = computed( () => this.collapsed() ? '56px' : '15%' );
+  sidenavContent = computed( () => this.collapsed() ? 'calc(100% - 56px)' : '85%' );
 
 }

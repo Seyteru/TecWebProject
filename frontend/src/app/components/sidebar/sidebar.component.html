@@ -1,11 +1,13 @@
-<mat-toolbar class="mat-elevation-z3">
-    <button mat-icon-button (click)="collapsed.set(!collapsed())">
-        <mat-icon class="menu-icon">menu</mat-icon>
-    </button>
-    <span class="toolbar-title">Press Portal</span>
-    <span class="spacer"></span>
-    <span class="toolbar-title-screen">{{title}}</span>
-    <span class="spacer"></span>
+<mat-toolbar class="toolbar">
+    <div class="left-side-toolbar">
+        <button mat-icon-button (click)="collapsed.set(!collapsed())">
+            <mat-icon class="menu-icon">menu</mat-icon>
+        </button>
+        <span class="toolbar-title">Press Portal</span>
+    </div>
+    <div class="center-side-toolbar">
+        <span class="toolbar-title-screen">{{title}}</span>
+    </div>
 </mat-toolbar>
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav class="sidenav" opened mode="side" [style.width]="sidenavWidth()">

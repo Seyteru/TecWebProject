@@ -1,10 +1,32 @@
-mat-toolbar{
+.toolbar{
   position: relative;
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: space-between;
-  z-index: 5;
+  z-index: 100;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid #ccc;
+}
+
+.left-side-toolbar{
+  display: flex;
+  align-items: center;
+}
+
+.toolbar-title{
+  margin-left: 5%;
+}
+
+.center-side-toolbar{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+}
+
+.toolbar-title-screen{
+  font-size:xx-large;
 }
 
 .sidenav-content{
@@ -25,17 +47,4 @@ mat-sidenav, mat-sidenav-content{
   z-index: 2;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
   border-right: 1px solid #ccc 
-}
-
-.toolbar-title{
-  text-align: left;
-}
-
-.toolbar-title-screen{
-  text-align: center;
-  font-size:xx-large;
-}
-
-.spacer{
-  flex: 1;
 }

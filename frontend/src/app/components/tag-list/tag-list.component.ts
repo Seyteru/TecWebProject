@@ -4,11 +4,13 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Article } from '../../datamodels/Article';
 import { ArticleListComponent } from "../article-list/article-list.component";
 import { MarkdownModule } from 'ngx-markdown';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-tag-list',
   standalone: true,
-  imports: [RouterLink, ArticleListComponent, MarkdownModule],
+  imports: [RouterLink, ArticleListComponent, MarkdownModule, MatIconModule, MatButtonModule],
   templateUrl: './tag-list.component.html',
   styleUrl: './tag-list.component.scss'
 })

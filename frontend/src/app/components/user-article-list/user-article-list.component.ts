@@ -5,11 +5,13 @@ import { ArticleService } from '../../services/article.service';
 import { UserService } from '../../services/user.service';
 import { MarkdownModule } from 'ngx-markdown';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-user-article-list',
   standalone: true,
-  imports: [ArticleListComponent, MarkdownModule, RouterLink],
+  imports: [ArticleListComponent, MarkdownModule, RouterLink, MatIconModule, MatButtonModule],
   templateUrl: './user-article-list.component.html',
   styleUrl: './user-article-list.component.scss'
 })

@@ -1,4 +1,7 @@
 .pagination{
-    justify-content: center;
+    position: relative;
+    bottom: 2%;
     align-items: center;
+    left: calc(50% - 56px);
+    max-width: fit-content;
 }

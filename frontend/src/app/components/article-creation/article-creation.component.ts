@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-article-creation',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, MatIconModule, LMarkdownEditorModule, MarkdownModule, MatButtonModule],
+  imports: [ReactiveFormsModule, FormsModule, MatIconModule, LMarkdownEditorModule, MarkdownModule, MatButtonModule, MatIconModule],
   templateUrl: './article-creation.component.html',
   styleUrl: './article-creation.component.scss'
 })

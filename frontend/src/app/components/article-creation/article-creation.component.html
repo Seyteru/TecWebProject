@@ -3,7 +3,7 @@
     <form [formGroup]="createArticleForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
         <div class="creation-title">
             <label for="title">Title</label>
-            <input id="title" formControlName="title" name="title" type="text" placeholder="Enter Title" />
+            <input id="title" formControlName="title" name="title" type="text" placeholder="Enter Title" maxlength="24"/>
             @if(createArticleForm.get('title')?.invalid && createArticleForm.get('title')?.touched){
                 <div>
                     Title is Required
@@ -12,7 +12,7 @@
         </div>
         <div class="creation-subtitle">
             <label for="subtitle">Subtitle</label>
-            <input id="subtitle" formControlName="subtitle" name="subtitle" type="text" placeholder="Enter Subtitle" />
+            <input id="subtitle" formControlName="subtitle" name="subtitle" type="text" placeholder="Enter Subtitle" maxlength="48"/>
             @if(createArticleForm.get('subtitle')?.invalid && createArticleForm.get('subtitle')?.touched){
                 <div>
                     Subtitle is Required
@@ -40,6 +40,6 @@
         @if(errorMsg){
             <div class="errorMsg">{{ errorMsg }}</div>
         }
-        <button mat-button class="create-button" type="submit" [disabled]="createArticleForm.invalid">Create Article</button>
+        <button mat-button class="create-button" type="submit" [disabled]="createArticleForm.invalid">Create Article<mat-icon>send</mat-icon></button>
     </form>
 </div>

@@ -2,14 +2,15 @@ import { Component, inject } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { MatIcon } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { LMarkdownEditorModule } from 'ngx-markdown-editor'
 import { MarkdownModule } from 'ngx-markdown'
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-article-creation',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, MatIcon, LMarkdownEditorModule, MarkdownModule],
+  imports: [ReactiveFormsModule, FormsModule, MatIconModule, LMarkdownEditorModule, MarkdownModule, MatButtonModule],
   templateUrl: './article-creation.component.html',
   styleUrl: './article-creation.component.scss'
 })
@@ -40,7 +41,9 @@ export class ArticleCreationComponent {
   }
 
   addTag(tag: string){
-    this.tags.push(this.formBuilder.control(tag));
+    if(tag){
+      this.tags.push(this.formBuilder.control(tag));
+    }
   }
 
   removeTag(index: number){

@@ -30,7 +30,7 @@
         </div>
         <div class="creation-tagList" formArrayName="tags">
         @for (tag of tags.controls; track tag; let idx = $index) {
-            <button type="button" (click)="removeTag(idx)">{{tag.value}}</button>
+            <button mat-button class="tag-button" type="button" (click)="removeTag(idx)">{{tag.value}}<mat-icon>remove</mat-icon></button>
         }
         </div>
         <div class="creation-tags">
@@ -40,6 +40,6 @@
         @if(errorMsg){
             <div class="errorMsg">{{ errorMsg }}</div>
         }
-        <button type="submit" [disabled]="createArticleForm.invalid">Create Article</button>
+        <button mat-button class="create-button" type="submit" [disabled]="createArticleForm.invalid">Create Article</button>
     </form>
 </div>

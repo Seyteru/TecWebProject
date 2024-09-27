@@ -30,7 +30,7 @@ export class AuthenticationService {
   }
 
   logout(){
-    this.tokenService.signOut();
+    this.tokenService.clearToken();
     this.router.navigate(['/login']);
   }
 

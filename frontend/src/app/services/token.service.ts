@@ -7,14 +7,12 @@ import { jwtDecode } from 'jwt-decode';
 export class TokenService {
 
   private tokenKey = 'authToken';
-  private userKey = 'authUser';
 
-  signOut(){
+  clearToken(){
     localStorage.removeItem(this.tokenKey);
   }
 
   saveToken(token: string){
-    localStorage.removeItem(this.tokenKey);
     localStorage.setItem(this.tokenKey, token);
   }
 
@@ -22,12 +20,21 @@ export class TokenService {
     return localStorage.getItem(this.tokenKey);
   }
 
-  getUser(): any{
-    const user = localStorage.getItem(this.userKey);
-    if(user){
-      return JSON.parse(user);
+  isTokenExpired(token: string): boolean{
+    const expiration = this.getTokenExpirationDate(token);
+    if(expiration){
+      return (expiration <= new Date);
     } else{
-      return {};
+      return false;
+    }
+  }
+
+  getTokenExpirationDate(token: string): any | null{
+    const decodedToken: any = jwtDecode(token);
+    if(decodedToken && decodedToken.exp){
+      return decodedToken;
+    } else{
+      return null;
     }
   }
 

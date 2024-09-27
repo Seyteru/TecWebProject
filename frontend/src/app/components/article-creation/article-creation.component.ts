@@ -41,7 +41,7 @@ export class ArticleCreationComponent {
   }
 
   addTag(tag: string){
-    if(tag){
+    if(tag && !this.tagExists(tag)){
       this.tags.push(this.formBuilder.control(tag));
     }
   }
@@ -64,6 +64,10 @@ export class ArticleCreationComponent {
         }
       });
     }
+  }
+
+  tagExists(tag: string): boolean{
+    return this.tags.controls.some(control => control.value == tag);
   }
 
 }

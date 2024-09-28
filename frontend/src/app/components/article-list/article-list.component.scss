@@ -1,5 +1,5 @@
 .article-list{
-    transform: translateX(-28px);
+    text-align: center;
     padding: 2%;
 }
 
@@ -24,5 +24,30 @@ a{
 }
 
 .mat-card-subtitle{
-    
+    font-size: x-large;
+    margin-bottom: 4%;
+}
+
+.mat-card-createdAt{
+    font-size: medium;
+    margin-bottom: 4%;
+}
+
+.mat-card-updateAt{
+    font-size: medium;
+    margin-bottom: 4%;
+}
+
+.body-container{
+    width: 95%;
+    box-shadow: 1px 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 32px;
+}
+
+.tag-button{
+    border: #007bff;
+    margin-left: 5%;
+    margin-bottom: 1%;
+    z-index: 50;
+    box-shadow: 1px 0 10px rgba(0, 0, 0, 0.5);
 }

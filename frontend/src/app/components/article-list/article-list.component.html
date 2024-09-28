@@ -11,13 +11,15 @@
                     }
                 </mat-card-header>
                 @if(article.body){
-                    <mat-card-content class="mat-card-body">
-                        <p><markdown>{{ article.body }}   <a [routerLink]="['/article', article.id]">Read More!</a></markdown></p>
-                    </mat-card-content>
+                    <div class="body-container">
+                        <mat-card-content class="mat-card-body">
+                            <p><markdown>{{ article.body }}   <a [routerLink]="['/article', article.id]">Read More!</a></markdown></p>
+                        </mat-card-content>
+                    </div>
                 }
                 <mat-card-actions class="mat-card-tag" align="start">
                     @for (tag of article.tags; track tag) {
-                        <a button mat-button [routerLink]="['/article/tag', tag]">{{tag}}</a>
+                        <a button mat-button class="tag-button" [routerLink]="['/article/tag', tag]">{{tag}}</a>
                     }
                   </mat-card-actions>
             </mat-card>

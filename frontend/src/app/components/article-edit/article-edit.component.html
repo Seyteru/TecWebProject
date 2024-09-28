@@ -1,50 +1,46 @@
 <div class="article-edit-container">
     <h2>Edit Article</h2>
-    <h2>{{article.title}}</h2>
     <form [formGroup]="editArticleForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
         <div class="edit-title">
-            <mat-form-field appearance="fill">
-                <mat-label>Title</mat-label>
-                <input matInput id="title" formControlName="title"/>
-                @if(editArticleForm.get('title')?.invalid && editArticleForm.get('title')?.touched){
-                    <div>
-                        Title is Required
-                    </div>
-                }
-            </mat-form-field>
+            <label for="title">Title</label>
+            <input id="title" formControlName="title" name="title" type="text" placeholder="Enter Title" maxlength="24"/>
+            @if(editArticleForm.get('title')?.invalid && editArticleForm.get('title')?.touched){
+                <div class="error-msg">
+                    Title is Required
+                </div>
+            }
         </div>
         <div class="edit-subtitle">
-            <mat-form-field appearance="fill">
-                <mat-label>Subtitle</mat-label>
-                <input matInput id="subtitle" formControlName="subtitle"/>
-                @if(editArticleForm.get('subtitle')?.invalid && editArticleForm.get('subtitle')?.touched){
-                    <div>
-                        Title is Required
-                    </div>
-                }
-            </mat-form-field>
+            <label for="subtitle">Subtitle</label>
+            <input id="subtitle" formControlName="subtitle" name="subtitle" type="text" placeholder="Enter Subtitle" maxlength="24"/>
+            @if(editArticleForm.get('title')?.invalid && editArticleForm.get('subtitle')?.touched){
+                <div class="error-msg">
+                    Subtitle is Required
+                </div>
+            }
         </div>
         <div class="edit-body">
             <label for="body">Body</label>
             <md-editor id="body" formControlName="body" name="body" type="text" placeholder="Enter Body"></md-editor>
             @if(editArticleForm.get('body')?.invalid && editArticleForm.get('body')?.touched){
-                <div>
+                <div class="error-msg">
                     Body is Required
                 </div>
             }
         </div>
         <div class="edit-tagList" formArrayName="tags">
-        @for (tag of tags.controls; track tag; let idx = $index) {
-            <button type="button" (click)="removeTag(idx)">{{tag.value}}</button>
-        }
-        </div>
-        <mat-form-field>
-            <label>Tag</label>
-            <input matInput #newTag (keyup.enter)="addTag(newTag.value); newTag.value = ''"/>
-        </mat-form-field>
-        @if(errorMsg){
-            <div class="errorMsg">{{ errorMsg }}</div>
-        }
-        <button type="submit" [disabled]="editArticleForm.invalid">Edit Article</button>
+            @for (tag of tags.controls; track tag; let idx = $index) {
+                <button mat-button class="tag-button" type="button" (click)="removeTag(idx)">{{tag.value}}<mat-icon>remove</mat-icon></button>
+            }
+            </div>
+            <div class="edit-tags">
+                <label>Tag</label>
+                <input #newTag (keyup.enter)="addTag(newTag.value); newTag.value = ''"/>
+            </div>
+            @if(errorMsg){
+                <div class="error-msg">{{ errorMsg }}</div>
+            }
+            <button mat-button class="edit-button" type="submit" [disabled]="editArticleForm.invalid">Edit Article<mat-icon>send</mat-icon></button>
+        
     </form>
 </div>

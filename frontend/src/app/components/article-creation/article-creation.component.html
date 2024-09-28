@@ -5,7 +5,7 @@
             <label for="title">Title</label>
             <input id="title" formControlName="title" name="title" type="text" placeholder="Enter Title" maxlength="24"/>
             @if(createArticleForm.get('title')?.invalid && createArticleForm.get('title')?.touched){
-                <div>
+                <div class="error-msg">
                     Title is Required
                 </div>
             }
@@ -14,7 +14,7 @@
             <label for="subtitle">Subtitle</label>
             <input id="subtitle" formControlName="subtitle" name="subtitle" type="text" placeholder="Enter Subtitle" maxlength="48"/>
             @if(createArticleForm.get('subtitle')?.invalid && createArticleForm.get('subtitle')?.touched){
-                <div>
+                <div class="error-msg">
                     Subtitle is Required
                 </div>
             }
@@ -23,7 +23,7 @@
             <label for="body">Body</label>
             <md-editor id="body" formControlName="body" name="body" type="text" placeholder="Enter Body"></md-editor>
             @if(createArticleForm.get('body')?.invalid && createArticleForm.get('body')?.touched){
-                <div>
+                <div class="error-msg">
                     Body is Required
                 </div>
             }

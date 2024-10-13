@@ -26,7 +26,7 @@ const getLatestArticlesByTag = async(limit, page, tag) => {
     });
 };
 
-const getArticlesNumber = async() => {
+const countArticles = async() => {
     return await Article.count();
 }
 
@@ -68,4 +68,4 @@ const deleteArticleById = async(id) => {
     }
 };
 
-module.exports = { createArticle, getArticlesNumber ,getLatestArticlesWithLimit, getAllArticles, getArticleById, getLatestAuthorArticles, updateArticleById, deleteArticleById, getLatestArticlesByTag };
+module.exports = { createArticle, countArticles ,getLatestArticlesWithLimit, getAllArticles, getArticleById, getLatestAuthorArticles, updateArticleById, deleteArticleById, getLatestArticlesByTag };

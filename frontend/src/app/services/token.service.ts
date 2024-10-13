@@ -32,7 +32,7 @@ export class TokenService {
   getTokenExpirationDate(token: string): any | null{
     const decodedToken: any = jwtDecode(token);
     if(decodedToken && decodedToken.exp){
-      return decodedToken;
+      return decodedToken.exp;
     } else{
       return null;
     }

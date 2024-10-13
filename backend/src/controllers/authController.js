@@ -1,11 +1,8 @@
-const express = require('express');
-const authController = express.Router();
 const bcrypt = require('bcryptjs');
 const { User } = require('../config/dbconnection');
 const jwt = require('jsonwebtoken');
-const {authenticateToken} = require('../middleware/authMiddleware');
 
-authController.post('/register', authenticateToken, async(req, res) => {
+exports.register = async(req, res) => {
     try {
         const { username, password, role } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -15,9 +12,9 @@ authController.post('/register', authenticateToken, async(req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-});
+};
 
-authController.post('/login', async(req, res) => {
+exports.login = async(req, res) => {
     try {
         const { username, password } = req.body;
         const user = await User.findOne({ where: { username: username } });
@@ -29,12 +26,10 @@ authController.post('/login', async(req, res) => {
             return res.status(401).json({ error: 'Invalid Credentials!' });
         }
         const accessToken = jwt.sign({ id: user.id, username: user.username, role: user.role }, '8cd1d760c308a73dd025b1ecac0d621353a0687c0eee8e5af64b56fc3de56de3', {
-            expiresIn: '4h'
+            expiresIn: '1h'
         });
         res.status(200).json(accessToken)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-});
-
-module.exports = authController;
+};

@@ -37,9 +37,6 @@
             <label>Tag</label>
             <input #newTag (keyup.enter)="addTag(newTag.value); newTag.value = ''"/>
         </div>
-        @if(errorMsg){
-            <div class="errorMsg">{{ errorMsg }}</div>
-        }
         <button mat-button class="create-button" type="submit" [disabled]="createArticleForm.invalid">Create Article<mat-icon>send</mat-icon></button>
     </form>
 </div>

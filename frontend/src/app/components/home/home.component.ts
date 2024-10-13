@@ -6,6 +6,8 @@ import { ArticleListComponent } from "../article-list/article-list.component";
 import { Article } from '../../datamodels/Article';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class HomeComponent implements OnInit{
 
   private articleService = inject(ArticleService);
+  private dialog = inject(MatDialog);
 
   articles: Article[] = [];
   totalArticles: number = 0;
@@ -33,7 +36,15 @@ export class HomeComponent implements OnInit{
         this.totalArticles = articlesNumber.totalArticles;
       },
       error: (error) => {
-        alert('Error on Get Articles Number');
+        this.dialog.open(AlertDialogComponent, {
+          data: {
+            title: 'Failure',
+            content: 'Failure on get Articles Number!'
+          },
+          width: '250px',
+          enterAnimationDuration: '500ms',
+          exitAnimationDuration: '500ms'
+        });
         console.error(error);
       }
     });
@@ -45,7 +56,15 @@ export class HomeComponent implements OnInit{
         this.articles = articlesRetrieved;
       },
       error: (error) => {
-        alert('Error on Get Latest Articles!');
+        this.dialog.open(AlertDialogComponent, {
+          data: {
+            title: 'Failure',
+            content: 'Failure on get Latest Articles!'
+          },
+          width: '250px',
+          enterAnimationDuration: '500ms',
+          exitAnimationDuration: '500ms'
+        });
         console.error(error);
       }
     });

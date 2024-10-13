@@ -6,6 +6,8 @@ import { ArticleListComponent } from "../article-list/article-list.component";
 import { MarkdownModule } from 'ngx-markdown';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tag-list',
@@ -19,6 +21,7 @@ export class TagListComponent implements OnInit{
   articles: Article[] = [];
   private articleService = inject(ArticleService);
   private route = inject(ActivatedRoute);
+  private dialog = inject(MatDialog);
 
   totalArticles: number = 0;
   currentPage: number = 1;
@@ -38,7 +41,15 @@ export class TagListComponent implements OnInit{
           this.articles = articleRetrieved;
         }, 
         error: () => {
-          alert('Error on Get Article By Tag!')
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Failure',
+              content: 'Failure on get Articles by Tag!'
+            },
+            width: '250px',
+            enterAnimationDuration: '500ms',
+            exitAnimationDuration: '500ms'
+          });
         }
       });
     }

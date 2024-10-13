@@ -30,9 +30,6 @@
         <div>
             <mat-checkbox class="checkbox-group" [checked]="registerForm.get('role')?.value === 'admin'" (change)="registerForm.patchValue({ role: $event.checked ? 'admin' : '' })" >Admin Account</mat-checkbox>
         </div>
-        @if(errorMsg){
-            <div class="errorMsg">{{ errorMsg }}</div>
-        }
         <button class="submit-button" type="submit">Register</button>
     </form>
 </div>

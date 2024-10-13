@@ -7,6 +7,8 @@ import { MarkdownModule } from 'ngx-markdown';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { UserService } from '../../services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
 
 
 @Component({
@@ -22,6 +24,7 @@ export class ArticleDetailComponent implements OnInit{
   private userService = inject(UserService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private dialog = inject(MatDialog)
 
   article: Article | undefined;
 
@@ -37,7 +40,15 @@ export class ArticleDetailComponent implements OnInit{
           this.article = articleRetrieved;
         }, 
         error: () => {
-          alert('Error on Get Article!')
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Failure',
+              content: 'Failure on get Article!'
+            },
+            width: '250px',
+            enterAnimationDuration: '500ms',
+            exitAnimationDuration: '500ms'
+          });
           this.router.navigate(['/home']);
         }
       });

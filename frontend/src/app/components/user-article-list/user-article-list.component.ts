@@ -7,6 +7,8 @@ import { MarkdownModule } from 'ngx-markdown';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-article-list',
@@ -20,6 +22,7 @@ export class UserArticleListComponent {
   articles: Article[] = [];
   private articleService = inject(ArticleService);
   private userService = inject(UserService);
+  private dialog = inject(MatDialog);
 
   totalArticles: number = 0;
   currentPage: number = 1;
@@ -35,7 +38,15 @@ export class UserArticleListComponent {
         this.articles = articlesRetrieved;
       },
       error: (error) => {
-        alert('Error on Get Latest Author Articles!');
+        this.dialog.open(AlertDialogComponent, {
+          data: {
+            title: 'Failure',
+            content: 'Failure on get Author Articles!'
+          },
+          width: '250px',
+          enterAnimationDuration: '500ms',
+          exitAnimationDuration: '500ms'
+        });
         console.error(error);
       }
     });

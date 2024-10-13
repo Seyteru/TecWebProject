@@ -6,6 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { LMarkdownEditorModule } from 'ngx-markdown-editor'
 import { MarkdownModule } from 'ngx-markdown'
 import { MatButtonModule } from '@angular/material/button';
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-article-creation',
@@ -19,8 +21,9 @@ export class ArticleCreationComponent {
   private articleService = inject(ArticleService);
   private formBuilder = inject(FormBuilder);
   private router = inject(Router);
+  private dialog = inject(MatDialog);
+
   createArticleForm: FormGroup;
-  errorMsg: string = '';
   articleContent: string = '';
 
   onContentChange(content: string){
@@ -54,12 +57,27 @@ export class ArticleCreationComponent {
     if(this.createArticleForm.valid){
       this.articleService.createArticle(this.createArticleForm.value).subscribe({
         next: () => {
-          alert('Article Creation Success!');
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Success',
+              content: 'Successfully Created a new Article!'
+            },
+            width: '250px',
+            enterAnimationDuration: '500ms',
+            exitAnimationDuration: '500ms'
+          });
           this.router.navigate(['/home']);
         },
         error: (error) => {
-          this.errorMsg = 'Error on Create Article!'
-          alert( `Article: ${this.createArticleForm.value} ${error.message}` );
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Failure',
+              content: 'Failure on Create a new Article!'
+            },
+            width: '250px',
+            enterAnimationDuration: '500ms',
+            exitAnimationDuration: '500ms'
+          });
           console.error(error);
         }
       });

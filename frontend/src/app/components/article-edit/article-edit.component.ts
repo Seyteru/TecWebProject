@@ -7,6 +7,8 @@ import { LMarkdownEditorModule } from 'ngx-markdown-editor';
 import { MarkdownModule } from 'ngx-markdown';
 import { Article } from '../../datamodels/Article';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'app-article-edit',
@@ -21,6 +23,8 @@ export class ArticleEditComponent implements OnInit{
   private formBuilder = inject(FormBuilder);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private dialog = inject(MatDialog)
+
   editArticleForm!: FormGroup;
   errorMsg: string = '';
   articleContent: string = '';
@@ -49,9 +53,26 @@ export class ArticleEditComponent implements OnInit{
             body: articleRetrieved.body,
             tags: articleRetrieved.tags,
           })
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Success',
+              content: 'Successfully Edited Article!'
+            },
+            width: '250px',
+            enterAnimationDuration: '500ms',
+            exitAnimationDuration: '500ms'
+          });
         }, 
         error: () => {
-          alert('Error on Get Article!')
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Failure',
+              content: 'Failure on Edit Article!'
+            },
+            width: '250px',
+            enterAnimationDuration: '500ms',
+            exitAnimationDuration: '500ms'
+          });
           this.router.navigate(['/home']);
         }
       });

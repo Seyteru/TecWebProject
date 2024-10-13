@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgClass } from '@angular/common';
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-register',
@@ -20,6 +22,7 @@ export class RegisterComponent {
   private router = inject(Router);
   private authService = inject(AuthenticationService);
   private formBuilder = inject(FormBuilder);
+  private dialog = inject(MatDialog);
 
   constructor(){
     this.registerForm = this.formBuilder.group({
@@ -47,15 +50,21 @@ export class RegisterComponent {
     if(this.registerForm.valid){
       this.authService.register(this.registerForm.value).subscribe({
         next: () => {
-          alert('Registration Success!');
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Success',
+              content: 'Successfully Created a new User!'
+            },
+            width: '250px',
+            enterAnimationDuration: '500ms',
+            exitAnimationDuration: '500ms'
+          });
           this.router.navigate(['/home']);
         },
         error: () => {
           this.errorMsg = 'Invalid Username/Password or Username already exists!';
         }
       });
-    } else{
-      alert('Invalid Fields!')
     }
   }
 }

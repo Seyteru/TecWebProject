@@ -1,5 +1,5 @@
-<h2 mat-dialog-title>{{dialogTitle}}</h2>
-<mat-dialog-content>Would you like to logout?</mat-dialog-content>
+<h2 mat-dialog-title>{{data.title}}</h2>
+<mat-dialog-content>{{data.content}}</mat-dialog-content>
 <mat-dialog-actions>
     <a button mat-button mat-dialog-close [routerLink]="'home'" (click)="onNoClick()">No</a>
     <a button mat-button mat-dialog-close [routerLink]="'login'" (click)="onYesClick()">Yes</a>

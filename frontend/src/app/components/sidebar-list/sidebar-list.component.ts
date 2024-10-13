@@ -34,6 +34,10 @@ export class SidebarListComponent {
 
   openDialog(){
     const dialogRef = this.dialog.open(WarningDialogComponent, {
+      data: {
+        title: 'Logout',
+        content: 'Would you like to Log Out?'
+      },
       width: '250px',
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '500ms'
@@ -51,6 +55,10 @@ export class SidebarListComponent {
     try {
       this.logout();
       this.dialog.open(AlertDialogComponent, {
+        data: {
+          title: 'Success',
+          content: 'Successfully Logged Out!'
+        },
         width: '250px',
         enterAnimationDuration: '500ms',
         exitAnimationDuration: '500ms'

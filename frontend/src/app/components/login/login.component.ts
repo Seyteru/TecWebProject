@@ -35,6 +35,10 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value).subscribe({
         next: () => {
           this.dialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Success',
+              content: 'Successfully Logged In!'
+            },
             width: '250px',
             enterAnimationDuration: '500ms',
             exitAnimationDuration: '500ms'
@@ -42,7 +46,15 @@ export class LoginComponent {
           this.router.navigate(['/home']);
         },
         error: () => {
-          this.errorMsg = 'Invalid Username or Password';
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Failure',
+              content: 'Invalid Username or Password!'
+            },
+            width: '250px',
+            enterAnimationDuration: '500ms',
+            exitAnimationDuration: '500ms'
+          });
         }
       });
     }

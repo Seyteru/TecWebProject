@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -25,8 +25,22 @@ export class RegisterComponent {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
+      retypePassword: ['', Validators.required],
       role: ['']
-    });
+    },
+  {
+    validators: this.passwordsMatchValidator
+  });
+  }
+
+  passwordsMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const password = control.get('password');
+    const retypePassword = control.get('retypePassword');
+
+    if (password && retypePassword && password.value !== retypePassword.value) {
+      return { 'passwordsMatchValidator': true };
+    }
+    return null;
   }
 
   onSubmit(){
@@ -40,6 +54,8 @@ export class RegisterComponent {
           this.errorMsg = 'Invalid Username/Password or Username already exists!';
         }
       });
+    } else{
+      alert('Invalid Fields!')
     }
   }
 }

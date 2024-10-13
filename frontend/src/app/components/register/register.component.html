@@ -2,7 +2,7 @@
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="username">Username</label>
-            <input id="username" formControlName="username" name="username" type="text" placeholder="Enter Username" />
+            <input id="username" formControlName="username" name="username" type="text" placeholder="Enter Username" [ngClass]="{'error-username-field': registerForm.get('username')?.invalid && registerForm.get('username')?.touched}" />
             @if(registerForm.get('username')?.invalid && registerForm.get('username')?.touched){
                 <div class="error-msg">
                     Username is Required
@@ -11,7 +11,7 @@
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input id="password" formControlName="password" name="password" type="password" placeholder="Enter Password" />
+            <input id="password" formControlName="password" name="password" type="password" placeholder="Enter Password" [ngClass]="{'error-password-field': registerForm.get('password')?.invalid && registerForm.get('password')?.touched}"/>
             @if(registerForm.get('password')?.invalid && registerForm.get('password')?.touched){
                 <div class="error-msg">
                     Password is Required

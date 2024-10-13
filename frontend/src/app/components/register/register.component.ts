@@ -3,11 +3,12 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, MatCheckboxModule],
+  imports: [FormsModule, ReactiveFormsModule, MatCheckboxModule, NgClass],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })

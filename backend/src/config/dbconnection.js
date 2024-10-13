@@ -3,7 +3,8 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize('pressportal', 'postgres', 'Simone.2001', {
     host: 'localhost',
     dialect: 'postgres',
-    port: '5432'
+    port: '5432',
+    logging: console.log
 });
 
 const User = require('../datamodels/User')(sequelize);

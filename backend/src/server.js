@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const articleController = require('./controllers/articleController');
-const authController = require('./controllers/authController');
+const articleRoutes = require('./routes/articleRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
  
@@ -12,8 +12,8 @@ corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.use('/api/articles', articleController);
-app.use('/api/auth', authController);
+app.use('/api/articles', articleRoutes);
+app.use('/api/auth', authRoutes);
 
 const database = require('./config/dbconnection');
 

@@ -20,8 +20,8 @@
             }
         </div>
         <div class="creation-body">
-            <label for="body">Body</label>
-            <md-editor id="body" formControlName="body" name="body" type="text" placeholder="Enter Body"></md-editor>
+            <label>Body</label>
+            <md-editor formControlName="body" type="text" placeholder="Enter Body"></md-editor>
             @if(createArticleForm.get('body')?.invalid && createArticleForm.get('body')?.touched){
                 <div class="error-msg">
                     Body is Required
@@ -34,8 +34,8 @@
         }
         </div>
         <div class="creation-tags">
-            <label>Tag</label>
-            <input #newTag (keyup.enter)="addTag(newTag.value); newTag.value = ''" maxlength="24"/>
+            <label for="tags">Tag</label>
+            <input id="tags" #newTag (keyup.enter)="addTag(newTag.value); newTag.value = ''" maxlength="24"/>
         </div>
         <button mat-button class="create-button" type="submit" [disabled]="createArticleForm.invalid">Create Article<mat-icon>send</mat-icon></button>
     </form>

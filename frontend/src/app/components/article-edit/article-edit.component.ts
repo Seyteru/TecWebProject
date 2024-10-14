@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { LMarkdownEditorModule } from 'ngx-markdown-editor';
 import { MarkdownModule } from 'ngx-markdown';
@@ -9,11 +9,12 @@ import { Article } from '../../datamodels/Article';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-article-edit',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, MatIcon, LMarkdownEditorModule, MarkdownModule, MatButtonModule, MatIconModule],
+  imports: [ReactiveFormsModule, FormsModule, MatIcon, LMarkdownEditorModule, MarkdownModule, MatButtonModule, MatIconModule, NgClass],
   templateUrl: './article-edit.component.html',
   styleUrl: './article-edit.component.scss'
 })
@@ -26,15 +27,14 @@ export class ArticleEditComponent implements OnInit{
   private dialog = inject(MatDialog)
 
   editArticleForm!: FormGroup;
-  errorMsg: string = '';
   articleContent: string = '';
   article: Article = new Article();
 
   ngOnInit(): void {
     this.editArticleForm = this.formBuilder.group({
-      title: [''],
-      subtitle: [''],
-      body: [''],
+      title: ['', Validators.required],
+      subtitle: ['', Validators.required],
+      body: ['', Validators.required],
       tags: this.formBuilder.array([])
     });
     this.getArticleDetails();
@@ -47,27 +47,17 @@ export class ArticleEditComponent implements OnInit{
         next: (articleRetrieved) => {
           this.article = articleRetrieved;
           this.editArticleForm.patchValue({
-            id: articleId,
             title: articleRetrieved.title,
             subtitle: articleRetrieved.subtitle,
             body: articleRetrieved.body,
-            tags: articleRetrieved.tags,
-          })
-          this.dialog.open(AlertDialogComponent, {
-            data: {
-              title: 'Success',
-              content: 'Successfully Edited Article!'
-            },
-            width: '250px',
-            enterAnimationDuration: '500ms',
-            exitAnimationDuration: '500ms'
           });
+          this.setTags(articleRetrieved.tags);
         }, 
         error: () => {
           this.dialog.open(AlertDialogComponent, {
             data: {
               title: 'Failure',
-              content: 'Failure on Edit Article!'
+              content: 'Failure on get Article!'
             },
             width: '250px',
             enterAnimationDuration: '500ms',
@@ -79,9 +69,11 @@ export class ArticleEditComponent implements OnInit{
     }
   }
 
-
-  onContentChange(content: string){
-    this.articleContent = content;
+  setTags(tags: string[]){
+    const tagsArray = this.tags;
+    tags.forEach(tag => {
+      tagsArray.push(this.formBuilder.control(tag));
+    })
   }
 
   get tags(): FormArray{
@@ -100,12 +92,27 @@ export class ArticleEditComponent implements OnInit{
     if(this.editArticleForm.valid){
       this.articleService.updateArticleById(this.article.id ,this.editArticleForm.value).subscribe({
         next: () => {
-          alert('Article Update Success!');
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Success',
+              content: 'Successfully Edited Article!'
+            },
+            width: '250px',
+            enterAnimationDuration: '500ms',
+            exitAnimationDuration: '500ms'
+          });
           this.router.navigate(['/article', this.article.id]);
         },
         error: (error) => {
-          this.errorMsg = 'Error on Update Article!'
-          alert( `Article: ${this.editArticleForm.value} ${error.message}` );
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Failure',
+              content: 'Failure on Edit Article!'
+            },
+            width: '250px',
+            enterAnimationDuration: '500ms',
+            exitAnimationDuration: '500ms'
+          });
           console.error(error);
         }
       });

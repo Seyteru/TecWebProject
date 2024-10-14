@@ -3,7 +3,7 @@
     <form [formGroup]="editArticleForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
         <div class="edit-title">
             <label for="title">Title</label>
-            <input id="title" formControlName="title" name="title" type="text" placeholder="Enter Title" maxlength="24"/>
+            <input id="title" formControlName="title" name="title" type="text" placeholder="Enter Title" maxlength="24" [ngClass]="{'error-title-field': editArticleForm.get('title')?.invalid && editArticleForm.get('title')?.touched}"/>
             @if(editArticleForm.get('title')?.invalid && editArticleForm.get('title')?.touched){
                 <div class="error-msg">
                     Title is Required
@@ -12,7 +12,7 @@
         </div>
         <div class="edit-subtitle">
             <label for="subtitle">Subtitle</label>
-            <input id="subtitle" formControlName="subtitle" name="subtitle" type="text" placeholder="Enter Subtitle" maxlength="24"/>
+            <input id="subtitle" formControlName="subtitle" name="subtitle" type="text" placeholder="Enter Subtitle" maxlength="24" [ngClass]="{'error-title-field': editArticleForm.get('subtitle')?.invalid && editArticleForm.get('subtitle')?.touched}"/>
             @if(editArticleForm.get('title')?.invalid && editArticleForm.get('subtitle')?.touched){
                 <div class="error-msg">
                     Subtitle is Required
@@ -20,8 +20,8 @@
             }
         </div>
         <div class="edit-body">
-            <label for="body">Body</label>
-            <md-editor id="body" formControlName="body" name="body" type="text" placeholder="Enter Body"></md-editor>
+            <label>Body</label>
+            <md-editor formControlName="body" type="text" placeholder="Enter Body"></md-editor>
             @if(editArticleForm.get('body')?.invalid && editArticleForm.get('body')?.touched){
                 <div class="error-msg">
                     Body is Required
@@ -34,12 +34,9 @@
             }
             </div>
             <div class="edit-tags">
-                <label>Tag</label>
-                <input #newTag (keyup.enter)="addTag(newTag.value); newTag.value = ''"/>
+                <label for="tags">Tag</label>
+                <input id="tags" #newTag (keyup.enter)="addTag(newTag.value); newTag.value = ''"/>
             </div>
-            @if(errorMsg){
-                <div class="error-msg">{{ errorMsg }}</div>
-            }
             <button mat-button class="edit-button" type="submit" [disabled]="editArticleForm.invalid">Edit Article<mat-icon>send</mat-icon></button>
         
     </form>

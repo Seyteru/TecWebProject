@@ -23,8 +23,6 @@ export type MenuItem = {
 })
 export class SidebarListComponent {
 
-  showDialog: boolean = false;
-
   private authService = inject(AuthenticationService);
   private userService = inject(UserService);
   private dialog = inject(MatDialog);
@@ -46,7 +44,7 @@ export class SidebarListComponent {
       if(res == true){
         this.onYesClick();
       } else{
-
+        
       }
     });
   }
@@ -64,7 +62,15 @@ export class SidebarListComponent {
         exitAnimationDuration: '500ms'
       });
     } catch (error) {
-
+      this.dialog.open(AlertDialogComponent, {
+        data: {
+          title: 'Failure',
+          content: 'Failure To Log Out!'
+        },
+        width: '250px',
+        enterAnimationDuration: '500ms',
+        exitAnimationDuration: '500ms'
+      });
     }
   }
 

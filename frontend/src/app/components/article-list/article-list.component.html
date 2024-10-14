@@ -14,7 +14,7 @@
                 @if(article.body){
                     <div class="body-container">
                         <mat-card-content class="mat-card-body">
-                            <p><markdown [data]="article.body"> <a [routerLink]="['/article', article.id]">Read More!</a></markdown></p>
+                            <p><markdown [data]="article.body"></markdown></p>
                         </mat-card-content>
                     </div>
                 }

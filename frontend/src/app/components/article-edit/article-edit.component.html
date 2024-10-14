@@ -1,5 +1,10 @@
 <div class="article-edit-container">
-    <h2>Edit Article</h2>
+    <div class="edit-header">
+        <h2>Edit Article</h2>
+        <button mat-icon-button class="delete-button" (click)="onDeleteClick()">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
     <form [formGroup]="editArticleForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
         <div class="edit-title">
             <label for="title">Title</label>

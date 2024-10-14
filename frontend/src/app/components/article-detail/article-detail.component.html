@@ -1,7 +1,7 @@
 @if(article){
     <div class="card-article-detail">
         <mat-card class="card-detail" appearance="outlined">
-            <mat-card-header>
+            <mat-card-header class="mat-card-header">
                 <mat-card-title class="mat-card-title">{{ article.title }}</mat-card-title>
                 @if(isOwner() || isAdmin()){
                     <a button mat-icon-button class="edit-button" [routerLink]="['/article/edit', article.id]">

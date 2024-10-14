@@ -1,6 +1,6 @@
 import { Component, Inject, inject, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-alert-dialog',
@@ -12,7 +12,5 @@ import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, Ma
 export class AlertDialogComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { title: string, content: string }){}
-
-  private dialogRef= inject(MatDialogRef<AlertDialogComponent>);
 
 }

@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
 import { NgClass } from '@angular/common';
+import { WarningDialogComponent } from '../warning-dialog/warning-dialog.component';
 
 @Component({
   selector: 'app-article-edit',
@@ -116,6 +117,56 @@ export class ArticleEditComponent implements OnInit{
           console.error(error);
         }
       });
+    }
+  }
+
+  onDeleteClick(){
+    const dialogRef = this.dialog.open(WarningDialogComponent, {
+      data: {
+        title: 'Delete',
+        content: 'Would you like to Delete the Article?'
+      },
+      width: '250px',
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms'
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      if(res == true){
+        this.onYesClick();
+      } else{
+
+      }
+    });
+  }
+
+  onYesClick(){
+    if(this.article.id){
+      this.articleService.deleteArticleById(this.article.id).subscribe({
+        next: () => {
+          this.router.navigate(['/home']);
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Success',
+              content: 'Successfully Deleted Article!'
+            },
+            width: '250px',
+            enterAnimationDuration: '500ms',
+            exitAnimationDuration: '500ms'
+          });
+        },
+        error: (error) => {
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Failure',
+              content: 'Failure on Delete Article!'
+            },
+            width: '250px',
+            enterAnimationDuration: '500ms',
+            exitAnimationDuration: '500ms'
+          });
+          console.log(error);
+        }
+      })
     }
   }
 

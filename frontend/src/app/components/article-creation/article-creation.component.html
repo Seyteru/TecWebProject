@@ -3,7 +3,7 @@
     <form [formGroup]="createArticleForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
         <div class="creation-title">
             <label for="title">Title</label>
-            <input id="title" formControlName="title" name="title" type="text" placeholder="Enter Title" maxlength="24"/>
+            <input id="title" formControlName="title" name="title" type="text" placeholder="Enter Title" maxlength="24" [ngClass]="{'error-title-field': createArticleForm.get('title')?.invalid && createArticleForm.get('title')?.touched}"/>
             @if(createArticleForm.get('title')?.invalid && createArticleForm.get('title')?.touched){
                 <div class="error-msg">
                     Title is Required
@@ -12,7 +12,7 @@
         </div>
         <div class="creation-subtitle">
             <label for="subtitle">Subtitle</label>
-            <input id="subtitle" formControlName="subtitle" name="subtitle" type="text" placeholder="Enter Subtitle" maxlength="48"/>
+            <input id="subtitle" formControlName="subtitle" name="subtitle" type="text" placeholder="Enter Subtitle" maxlength="48" [ngClass]="{'error-subtitle-field': createArticleForm.get('subtitle')?.invalid && createArticleForm.get('subtitle')?.touched}"/>
             @if(createArticleForm.get('subtitle')?.invalid && createArticleForm.get('subtitle')?.touched){
                 <div class="error-msg">
                     Subtitle is Required
@@ -35,7 +35,7 @@
         </div>
         <div class="creation-tags">
             <label>Tag</label>
-            <input #newTag (keyup.enter)="addTag(newTag.value); newTag.value = ''"/>
+            <input #newTag (keyup.enter)="addTag(newTag.value); newTag.value = ''" maxlength="24"/>
         </div>
         <button mat-button class="create-button" type="submit" [disabled]="createArticleForm.invalid">Create Article<mat-icon>send</mat-icon></button>
     </form>

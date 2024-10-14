@@ -7,7 +7,14 @@ const truncateText = (text, limit) => {
 
 exports.createArticle = async(req, res) => {
     try {
-        const article = await articleCrud.createArticle(req.body, req.userId);
+        const { title, subtitle, body, tags, userId } = req.body;
+        const article = await articleCrud.createArticle({
+            title: title,
+            subtitle: subtitle,
+            body: body,
+            tags: tags,
+            userId: userId
+        });
         res.status(201).json(article);
     } catch (error) {
         res.status(500).json({ error: error.message });

@@ -1,8 +1,8 @@
 const { Article } = require('../config/dbconnection');
 const { Op } = require('sequelize');
 
-const createArticle = async(articleParams, userId) => {
-    return await Article.create(articleParams, userId);
+const createArticle = async(articleParams) => {
+    return await Article.create(articleParams);
 };
 
 const getLatestArticlesWithLimit = async(limit, page) => {

@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Article } from '../../datamodels/Article';
 import { MarkdownModule } from 'ngx-markdown';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { SanitizeService } from '../../services/sanitize.service';
 
 @Component({
   selector: 'app-article-list',
@@ -12,7 +13,9 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './article-list.component.html',
   styleUrl: './article-list.component.scss'
 })
-export class ArticleListComponent {
+export class ArticleListComponent implements OnInit{
+
+  private sanitizeService = inject(SanitizeService);
 
   @Input() articles: Article[] = [];
 
@@ -26,6 +29,12 @@ export class ArticleListComponent {
     const minutes = String(date.getMinutes()).padStart(2, '0');
 
     return `${year}/${month}/${day} ${hours}:${minutes}`;
+  }
+
+  ngOnInit(){
+    if(this.articles){
+      this.articles = this.sanitizeService.sanitizeMarkdownBody(this.articles);
+    }
   }
 
 }

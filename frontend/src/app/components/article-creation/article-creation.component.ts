@@ -8,11 +8,12 @@ import { MarkdownModule } from 'ngx-markdown'
 import { MatButtonModule } from '@angular/material/button';
 import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-article-creation',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, MatIconModule, LMarkdownEditorModule, MarkdownModule, MatButtonModule, MatIconModule],
+  imports: [ReactiveFormsModule, FormsModule, MatIconModule, LMarkdownEditorModule, MarkdownModule, MatButtonModule, MatIconModule, NgClass],
   templateUrl: './article-creation.component.html',
   styleUrl: './article-creation.component.scss'
 })
@@ -46,6 +47,16 @@ export class ArticleCreationComponent {
   addTag(tag: string){
     if(tag && !this.tagExists(tag)){
       this.tags.push(this.formBuilder.control(tag));
+    } else{
+      this.dialog.open(AlertDialogComponent, {
+        data: {
+          title: 'Failure',
+          content: 'You already added this Tag!'
+        },
+        width: '250px',
+        enterAnimationDuration: '500ms',
+        exitAnimationDuration: '500ms'
+      });
     }
   }
 

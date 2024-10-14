@@ -64,6 +64,10 @@ export class ArticleCreationComponent {
     this.tags.removeAt(index);
   }
 
+  tagExists(tag: string): boolean{
+    return this.tags.controls.some(control => control.value == tag);
+  }
+
   onSubmit(){
     if(this.createArticleForm.valid){
       this.articleService.createArticle(this.createArticleForm.value).subscribe({
@@ -93,10 +97,6 @@ export class ArticleCreationComponent {
         }
       });
     }
-  }
-
-  tagExists(tag: string): boolean{
-    return this.tags.controls.some(control => control.value == tag);
   }
 
 }

@@ -82,11 +82,27 @@ export class ArticleEditComponent implements OnInit{
   }
 
   addTag(tag: string){
-    this.tags.push(this.formBuilder.control(tag));
+    if(tag && !this.tagExists(tag)){
+      this.tags.push(this.formBuilder.control(tag));
+    } else{
+      this.dialog.open(AlertDialogComponent, {
+        data: {
+          title: 'Failure',
+          content: 'You already added this Tag!'
+        },
+        width: '250px',
+        enterAnimationDuration: '500ms',
+        exitAnimationDuration: '500ms'
+      });
+    }
   }
 
   removeTag(index: number){
     this.tags.removeAt(index);
+  }
+
+  tagExists(tag: string): boolean{
+    return this.tags.controls.some(control => control.value == tag);
   }
 
   onSubmit(){

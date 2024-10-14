@@ -40,6 +40,7 @@
 .sidenav-container{
   height: calc(100% - 64px);
   width: 100%;
+  background-color: #04a4b954;
 }
 
 mat-sidenav, mat-sidenav-content{
@@ -51,7 +52,8 @@ mat-sidenav, mat-sidenav-content{
   border-radius: 0;  
   z-index: 2;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
-  border-right: 1px solid #ccc 
+  border-right: 1px solid #ccc;
+  
 }
 
 @media (max-width: 835px){

@@ -30,6 +30,7 @@ export class TagListComponent implements OnInit{
   ngOnInit(){
     this.route.paramMap.subscribe(paramMap => {
       this.currentTag = paramMap.get('tag');
+      this.getArticlesByTagNumber(this.currentTag);
       this.getLatestArticlesByTag(this.currentPage, this.currentTag);
     });
   }
@@ -53,6 +54,26 @@ export class TagListComponent implements OnInit{
         }
       });
     }
+  }
+
+  getArticlesByTagNumber(tag: string | null){
+    this.articleService.getArticlesByTagNumber(tag).subscribe({
+      next: (articlesNumber) => {
+        this.totalArticles = articlesNumber.totalArticles;
+      },
+      error: (error) => {
+        this.dialog.open(AlertDialogComponent, {
+          data: {
+            title: 'Failure',
+            content: 'Failure on get Articles Number!'
+          },
+          width: '250px',
+          enterAnimationDuration: '500ms',
+          exitAnimationDuration: '500ms'
+        });
+        console.error(error);
+      }
+    });
   }
 
   onPageForward(){

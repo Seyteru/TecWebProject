@@ -28,6 +28,7 @@ export class UserArticleListComponent {
   currentPage: number = 1;
 
   ngOnInit(){
+    this.getAuthorArticlesNumber();
     this.getLatestAuthorArticles(this.currentPage);
   }
 
@@ -42,6 +43,27 @@ export class UserArticleListComponent {
           data: {
             title: 'Failure',
             content: 'Failure on get Author Articles!'
+          },
+          width: '250px',
+          enterAnimationDuration: '500ms',
+          exitAnimationDuration: '500ms'
+        });
+        console.error(error);
+      }
+    });
+  }
+
+  getAuthorArticlesNumber(){
+    const id = this.userService.getUserId();
+    this.articleService.getAuthorArticlesNumber(id).subscribe({
+      next: (articlesNumber) => {
+        this.totalArticles = articlesNumber.totalArticles;
+      },
+      error: (error) => {
+        this.dialog.open(AlertDialogComponent, {
+          data: {
+            title: 'Failure',
+            content: 'Failure on get Articles Number!'
           },
           width: '250px',
           enterAnimationDuration: '500ms',

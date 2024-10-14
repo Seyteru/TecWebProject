@@ -28,7 +28,25 @@ const getLatestArticlesByTag = async(limit, page, tag) => {
 
 const countArticles = async() => {
     return await Article.count();
-}
+};
+
+const countAuthorArticles = async(userId) => {
+    return await Article.count({
+        where: {
+            userId: userId
+        }
+    });
+};
+
+const countArticlesByTag = async(tag) => {
+    return await Article.count({
+        where: {
+            tags: {
+                [Op.contains]: [tag]
+            }
+        }
+    });
+};
 
 const getAllArticles = async() => {
     return await Article.findAll();
@@ -68,4 +86,4 @@ const deleteArticleById = async(id) => {
     }
 };
 
-module.exports = { createArticle, countArticles ,getLatestArticlesWithLimit, getAllArticles, getArticleById, getLatestAuthorArticles, updateArticleById, deleteArticleById, getLatestArticlesByTag };
+module.exports = { createArticle, countAuthorArticles, countArticlesByTag, countArticles ,getLatestArticlesWithLimit, getAllArticles, getArticleById, getLatestAuthorArticles, updateArticleById, deleteArticleById, getLatestArticlesByTag };

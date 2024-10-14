@@ -17,6 +17,16 @@ export class ArticleService {
     return this.http.get<{ totalArticles: number }>(`${this.url}/count`);
   }
 
+  getAuthorArticlesNumber(userId: number | null): Observable<{ totalArticles: number }>{
+    return this.http.get<{ totalArticles: number }>(`${this.url}/author/${userId}/count`, {
+      headers: { Authorization: `Bearer ${this.tokenService.getToken()}` }
+    });
+  }
+
+  getArticlesByTagNumber(tag: string | null): Observable<{ totalArticles: number }>{
+    return this.http.get<{ totalArticles: number }>(`${this.url}/tag/${tag}/count`);
+  }
+
   getLatestArticles(page: number): Observable<Article[]>{
     return this.http.get<any>(`${this.url}/latest/${page}`);
   }

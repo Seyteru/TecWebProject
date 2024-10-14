@@ -30,6 +30,24 @@ exports.countArticles = async(req, res) => {
     }
 };
 
+exports.countAuthorArticles = async(req, res) => {
+    try {
+        const totalArticles = await articleCrud.countAuthorArticles(req.params.id);
+        res.status(200).json({ totalArticles });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.countArticlesByTag = async(req, res) => {
+    try {
+        const totalArticles = await articleCrud.countArticlesByTag(req.params.tag);
+        res.status(200).json({ totalArticles });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 exports.getLatestArticlesWithLimit = async(req, res) => {
     try {
         const limit = 10;

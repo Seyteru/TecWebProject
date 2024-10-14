@@ -18,9 +18,7 @@ export class ArticleService {
   }
 
   getAuthorArticlesNumber(userId: number | null): Observable<{ totalArticles: number }>{
-    return this.http.get<{ totalArticles: number }>(`${this.url}/author/${userId}/count`, {
-      headers: { Authorization: `Bearer ${this.tokenService.getToken()}` }
-    });
+    return this.http.get<{ totalArticles: number }>(`${this.url}/author/${userId}/count`);
   }
 
   getArticlesByTagNumber(tag: string | null): Observable<{ totalArticles: number }>{
@@ -41,29 +39,21 @@ export class ArticleService {
   }
 
   getLatestAuthorArticles(id: number | null, page: number): Observable<Article[]>{
-    return this.http.get<any>(`${this.url}/author/${id}/${page}`, {
-      headers: { Authorization: `Bearer ${this.tokenService.getToken()}` }
-    });
+    return this.http.get<any>(`${this.url}/author/${id}/${page}`);
   }
 
   createArticle(article: any): Observable<any>{
-    return this.http.post<any>(this.url, article, {
-      headers: { Authorization: `Bearer ${this.tokenService.getToken()}` }
-    });
+    return this.http.post<any>(this.url, article);
   }
 
   updateArticleById(id: number | null | undefined, article: any): Observable<any>{
     const restUrl = `${this.url}/${id}`;
-    return this.http.put<any>(restUrl, article, {
-      headers: { Authorization: `Bearer ${this.tokenService.getToken()}` }
-    });
+    return this.http.put<any>(restUrl, article);
   }
 
-  deleteArticleById(articleId: number): Observable<unknown>{
-    const restUrl = `${this.url}/${articleId}`;
-    return this.http.delete(restUrl).pipe(
-      catchError(this.handleError('deleteArticleById'))
-    );
+  deleteArticleById(id: number): Observable<any>{
+    const restUrl = `${this.url}/${id}`;
+    return this.http.delete<any>(restUrl);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

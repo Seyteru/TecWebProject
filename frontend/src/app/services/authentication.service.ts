@@ -24,14 +24,14 @@ export class AuthenticationService {
   }
 
   register(credentials: { username: string, password: string, role: string }): Observable<any>{
-    return this.http.post(`${this.url}/register`, credentials, {
-      headers: { Authorization: `Bearer ${this.tokenService.getToken()}` }
-    });
+    return this.http.post(`${this.url}/register`, credentials);
   }
 
   logout(){
-    this.tokenService.clearToken();
-    this.router.navigate(['/login']);
+    if(this.isLoggedIn()){
+      this.tokenService.clearToken();
+      this.router.navigate(['/login']);
+    }
   }
 
   isLoggedIn(): boolean{

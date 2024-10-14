@@ -153,7 +153,7 @@ exports.updateArticleById = async(req, res) => {
 
 exports.deleteArticleById = async(req, res) => {
     try {
-        if(articleCrud.deleteArticleById()){
+        if(articleCrud.deleteArticleById(req.params.id)){
             res.status(204).json({ message: 'Article Deleted!' });
         } else{
             res.status(404).json({ error: 'Article Not Found!' });

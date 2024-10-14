@@ -21,7 +21,7 @@
         </div>
         <div class="creation-body">
             <label>Body</label>
-            <md-editor formControlName="body" type="text" placeholder="Enter Body"></md-editor>
+            <md-editor class="creation-markdown" formControlName="body" type="text" placeholder="Enter Body"></md-editor>
             @if(createArticleForm.get('body')?.invalid && createArticleForm.get('body')?.touched){
                 <div class="error-msg">
                     Body is Required

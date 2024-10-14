@@ -60,6 +60,14 @@ mat-sidenav, mat-sidenav-content{
     display: none;
   }
 
+  .left-side-toolbar{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+  }
+
   .menu-button{
     display: none;
   }

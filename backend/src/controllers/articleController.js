@@ -54,7 +54,7 @@ exports.getLatestArticlesWithLimit = async(req, res) => {
         const page = parseInt(req.params.page) || 1;
         const articles = await articleCrud.getLatestArticlesWithLimit(limit, page);
         const limitedArticles = articles.map((article, index) => {
-            if(index == 0){
+            if(index == 0 && page == 1){
                 return {
                     ...article.get(),
                     body: truncateText(article.body, 50)
@@ -77,7 +77,7 @@ exports.getLatestArticlesByTag = async(req, res) => {
         const tag = req.params.tag;
         const articles = await articleCrud.getLatestArticlesByTag(limit, page, tag);
         const limitedArticles = articles.map((article, index) => {
-            if(index == 0){
+            if(index == 0 && page == 1){
                 return {
                     ...article.get(),
                     body: truncateText(article.body, 50)
@@ -109,7 +109,7 @@ exports.getLatestAuthorArticles = async(req, res) => {
         const page = parseInt(req.params.page)
         const articles = await articleCrud.getLatestAuthorArticles(limit, page, id);
         const limitedArticles = articles.map((article, index) => {
-            if(index == 0){
+            if(index == 0 && page == 1){
                 return {
                     ...article.get(),
                     body: truncateText(article.body, 50)

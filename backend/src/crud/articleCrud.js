@@ -1,5 +1,6 @@
 const { Article } = require('../config/dbconnection');
 const { Op } = require('sequelize');
+const { User } = require('../config/dbconnection');
 
 const createArticle = async(articleParams) => {
     return await Article.create(articleParams);
@@ -9,7 +10,14 @@ const getLatestArticlesWithLimit = async(limit, page) => {
     return await Article.findAll({
         limit: limit,
         offset: (page - 1) * limit,
-        order: [['createdAt', 'DESC']]
+        order: [['createdAt', 'DESC']],
+        include: [
+            {
+                model: User,
+                as: 'user',
+                attributes: ['username']
+            }
+        ]
     });
 };
 
@@ -22,7 +30,14 @@ const getLatestArticlesByTag = async(limit, page, tag) => {
         },
         limit: limit,
         offset: (page - 1) * limit,
-        order: [['createdAt', 'DESC']]
+        order: [['createdAt', 'DESC']],
+        include: [
+            {
+                model: User,
+                as: 'user',
+                attributes: ['username']
+            }
+        ]
     });
 };
 
@@ -53,7 +68,15 @@ const getAllArticles = async() => {
 };
 
 const getArticleById = async(id) => {
-    return await Article.findByPk(id);
+    return await Article.findByPk(id, {
+        include: [
+            {
+                model: User,
+                as: 'user',
+                attributes: ['username']
+            }
+        ]
+    });
 };
 
 const getLatestAuthorArticles = async(limit, page, userId) => {
@@ -63,7 +86,14 @@ const getLatestAuthorArticles = async(limit, page, userId) => {
         },
         limit: limit,
         offset: (page - 1) * limit,
-        order: [['createdAt', 'DESC']]
+        order: [['createdAt', 'DESC']],
+        include: [
+            {
+                model: User,
+                as: 'user',
+                attributes: ['username']
+            }
+        ]
     });
 };
 

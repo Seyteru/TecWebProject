@@ -1,3 +1,5 @@
+import { User } from "./User";
+
 export class Article{
 
     id: number | null | undefined;
@@ -8,6 +10,7 @@ export class Article{
     updatedAt: string = '';
     tags: string[] = [];
     userId: number | null | undefined;
+    user: User | null | undefined;
 
     constructor(){} 
     

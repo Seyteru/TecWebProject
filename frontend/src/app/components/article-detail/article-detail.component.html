@@ -9,6 +9,7 @@
                     </a>
                 }
                 <mat-card-subtitle class="mat-card-subtitle">{{ article.subtitle }}</mat-card-subtitle>
+                <mat-card-subtitle class="mat-card-author">By {{ article.user?.username }}</mat-card-subtitle>
                 <mat-card-subtitle class="mat-card-createdAt">Created in: {{ formatDate(article.createdAt) }}</mat-card-subtitle>
                 @if(article.updatedAt != article.createdAt){
                     <mat-card-subtitle class="mat-card-updatedAt">Updated in: {{ formatDate(article.updatedAt) }}</mat-card-subtitle>

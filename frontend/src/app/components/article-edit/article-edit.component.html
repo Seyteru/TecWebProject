@@ -17,7 +17,7 @@
         </div>
         <div class="edit-subtitle">
             <label for="subtitle">Subtitle</label>
-            <input id="subtitle" formControlName="subtitle" name="subtitle" type="text" placeholder="Enter Subtitle" maxlength="24" [ngClass]="{'error-title-field': editArticleForm.get('subtitle')?.invalid && editArticleForm.get('subtitle')?.touched}"/>
+            <input id="subtitle" formControlName="subtitle" name="subtitle" type="text" placeholder="Enter Subtitle" maxlength="48" [ngClass]="{'error-title-field': editArticleForm.get('subtitle')?.invalid && editArticleForm.get('subtitle')?.touched}"/>
             @if(editArticleForm.get('title')?.invalid && editArticleForm.get('subtitle')?.touched){
                 <div class="error-msg">
                     Subtitle is Required

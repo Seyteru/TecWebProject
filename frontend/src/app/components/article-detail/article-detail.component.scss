@@ -29,6 +29,7 @@
 .mat-card-title{
     font-size: xx-large;
     margin-bottom: 8%;
+    font-weight: bolder;
 }
 
 .mat-card-subtitle{
@@ -39,7 +40,7 @@
 .mat-card-dates{
     position: absolute;
     top: 15px;
-    right: 15px;
+    left: 15px;
 }
 
 .mat-card-author{
@@ -76,6 +77,24 @@
     margin-bottom: 1%;
     z-index: 50;
     box-shadow: 1px 0 10px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 1075px){
+    .mat-card-title{
+        font-size: x-large;
+    }
+    .mat-card-subtitle{
+        font-size: large;
+    }
+}
+
+@media (max-width: 935px){
+    .mat-card-title{
+        font-size: large;
+    }
+    .mat-card-subtitle{
+        font-size: medium;
+    }
 }
 
 @media (max-width: 835px){

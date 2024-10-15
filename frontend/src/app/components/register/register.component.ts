@@ -6,11 +6,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgClass } from '@angular/common';
 import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, MatCheckboxModule, NgClass],
+  imports: [FormsModule, ReactiveFormsModule, MatCheckboxModule, NgClass, MatButtonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })

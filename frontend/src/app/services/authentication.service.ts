@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { TokenService } from './token.service';
 import { Router } from '@angular/router';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class AuthenticationService {
 
   private http = inject(HttpClient);
   private tokenService = inject(TokenService);
+  private userService = inject(UserService);
   private router = inject(Router)
 
   login(credentials: { username: string, password: string }): Observable<any>{
@@ -28,10 +30,8 @@ export class AuthenticationService {
   }
 
   logout(){
-    if(this.isLoggedIn()){
-      this.tokenService.clearToken();
-      this.router.navigate(['/login']);
-    }
+    this.tokenService.clearToken();
+    this.router.navigate(['/login']);
   }
 
   isLoggedIn(): boolean{

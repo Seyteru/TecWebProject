@@ -1,11 +1,10 @@
 .article-creation-container{
   max-width: 80%;
   margin: 0 auto;
-  padding: 5%;
+  padding: 2%;
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 1px 0 10px rgba(0, 0, 0, 0.5);
-  transform: translateX(-28px);
 
   h2{
     text-align: center;
@@ -13,9 +12,8 @@
   }
 
   .create-button{
-    border: 5% #ccc;
     box-shadow: 1px 0 10px rgba(0, 0, 0, 0.5);
-    font-size: xx-large;
+    font-size: x-large;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -45,6 +43,7 @@
 
   .creation-tags{
     max-width: 30%;
+    margin-bottom: 4%;
   }
 
   .tag-button{
@@ -75,6 +74,12 @@
 
 .error-subtitle-field{
   border-color: red !important;
+}
+
+@media (max-width: 410px){
+  .button-text{
+    display: none;
+  }
 }
 
   

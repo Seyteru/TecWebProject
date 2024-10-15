@@ -20,4 +20,15 @@ export class TokenService {
     return localStorage.getItem(this.tokenKey);
   }
 
+  getExpirationDate(token: string): Date | null{
+    const decodedToken = jwtDecode(token);
+    if(decodedToken && decodedToken.exp){
+      const date = new Date(0);
+      date.setUTCSeconds(decodedToken.exp);
+      return date;
+    } else{
+      return null;
+    }
+  }
+
 }

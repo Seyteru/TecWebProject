@@ -1,5 +1,5 @@
 <div class="article-creation-container">
-    <h2>Create a new Article</h2>
+    <h2>Create a New Article</h2>
     <form [formGroup]="createArticleForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
         <div class="creation-title">
             <label for="title">Title</label>
@@ -37,6 +37,6 @@
             <label for="tags">Tag</label>
             <input id="tags" #newTag (keyup.enter)="addTag(newTag.value); newTag.value = ''" maxlength="24"/>
         </div>
-        <button mat-button class="create-button" type="submit" [disabled]="createArticleForm.invalid">Create Article<mat-icon>send</mat-icon></button>
+        <button mat-button class="create-button" type="submit" [disabled]="createArticleForm.invalid"><div class="button-text">Create Article</div><mat-icon>send</mat-icon></button>
     </form>
 </div>

@@ -42,7 +42,7 @@
                 <label for="tags">Tag</label>
                 <input id="tags" #newTag (keyup.enter)="addTag(newTag.value); newTag.value = ''"/>
             </div>
-            <button mat-button class="edit-button" type="submit" [disabled]="editArticleForm.invalid">Edit Article<mat-icon>send</mat-icon></button>
+            <button mat-button class="edit-button" type="submit" [disabled]="editArticleForm.invalid"><div class="button-text">Edit Article</div><mat-icon>send</mat-icon></button>
         
     </form>
 </div>

@@ -7,7 +7,7 @@ function authenticateToken(req, res, next){
         return res.status(401).json({ error: 'Denied Access!' });
     }
     try{
-        const decoded = jwt.verify(token, '8cd1d760c308a73dd025b1ecac0d621353a0687c0eee8e5af64b56fc3de56de3');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
         req.body.userId = decoded.id;
         next();

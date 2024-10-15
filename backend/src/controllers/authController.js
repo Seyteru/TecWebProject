@@ -25,7 +25,7 @@ exports.login = async(req, res) => {
         if(!passwordMatch){
             return res.status(401).json({ error: 'Invalid Credentials!' });
         }
-        const accessToken = jwt.sign({ id: user.id, username: user.username, role: user.role }, '8cd1d760c308a73dd025b1ecac0d621353a0687c0eee8e5af64b56fc3de56de3', {
+        const accessToken = jwt.sign({ id: user.id, username: user.username, role: user.role }, process.env.JWT_SECRET, {
             expiresIn: '1h'
         });
         res.status(200).json(accessToken)

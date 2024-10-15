@@ -63,7 +63,15 @@ export class RegisterComponent {
           this.router.navigate(['/home']);
         },
         error: () => {
-          this.errorMsg = 'Invalid Username/Password or Username already exists!';
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              title: 'Failure',
+              content: 'Failure or Username already Exists!'
+            },
+            width: '250px',
+            enterAnimationDuration: '500ms',
+            exitAnimationDuration: '500ms'
+          });
         }
       });
     }

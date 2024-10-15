@@ -31,3 +31,23 @@ body{
 a{
   text-decoration: none;
 }
+
+.md-editor-container.fullscreen {
+  position: absolute !important;
+  top: 50px;
+  left: 50px;
+  max-width: 80vw;
+  max-height: 80vh;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  overflow: auto;
+}
+
+.btn.btn-sm.btn-default.ng-star-inserted:hover{
+  transform: scale(110%);
+}
+
+.mat-mdc-card-title.mat-card-title{
+  font-weight: bolder;
+}

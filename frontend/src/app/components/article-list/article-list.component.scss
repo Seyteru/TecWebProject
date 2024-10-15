@@ -24,12 +24,18 @@ a{
     font-size: xx-large;
     margin-bottom: 4%;
     color: #007bff !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
 
 }
 
 .mat-card-subtitle{
     font-size: x-large;
     margin-bottom: 4%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
 }
 
 .mat-card-author{
@@ -63,6 +69,9 @@ a{
     border-radius: 16px;
     margin-bottom: 4%;
     background-color: #ffffff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
 }
 
 .tag-button{

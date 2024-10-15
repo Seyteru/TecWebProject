@@ -1,4 +1,7 @@
 .article-creation-container{
+  display: flex;
+  position: relative;
+  flex-direction: column;
   max-width: 80%;
   margin: 0 auto;
   padding: 2%;

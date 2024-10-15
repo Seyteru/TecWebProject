@@ -2,7 +2,7 @@
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="username">Username</label>
-            <input id="username" formControlName="username" name="username" type="text" placeholder="Enter Username" [ngClass]="{'error-username-field': registerForm.get('username')?.invalid && registerForm.get('username')?.touched}" />
+            <input id="username" formControlName="username" name="username" type="text" placeholder="Enter Username" maxlength="24" [ngClass]="{'error-username-field': registerForm.get('username')?.invalid && registerForm.get('username')?.touched}" />
             @if(registerForm.get('username')?.invalid && registerForm.get('username')?.touched){
                 <div class="error-msg">
                     Username is Required
